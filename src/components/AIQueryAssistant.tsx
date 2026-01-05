@@ -8,13 +8,15 @@ import { Badge } from '@/components/ui/badge';
 import { Loader2, Sparkles, Database, Send, Copy, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTableData } from '@/context/TableDataContext';
+import { buildUrl } from '@/app/utils/urlBuilder';
 
 interface AIQueryAssistantProps {
-
+  reportId: string | number | null;
   onQueryGenerated: (query: string) => void;
 }
 
 const AIQueryAssistant: React.FC<AIQueryAssistantProps> = ({  
+  reportId,
   onQueryGenerated
 }) => {
   const [prompt, setPrompt] = useState('');
@@ -34,29 +36,34 @@ const AIQueryAssistant: React.FC<AIQueryAssistantProps> = ({
 
     setIsLoading(true);
     try {
+      console.log('reportId: ', reportId);
       // Create schema context for AI using global table data
       const schemaContext = tableData.map(table => ({
         table: table.tableName,
         columns: table.columns.map(col => `${col.columnName} (${col.dataType})`).join(', ')
       }));
 
-      const response = await fetch('/api/ai/generate-query', {
+      const response = await fetch(buildUrl(process.env.NEXT_PUBLIC_AI_GENERATE_QUERY || ''), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          reportId,
           prompt,
           schemas: schemaContext
         })
       });
 
       if (response.ok) {
-        const { query } = await response.json();
+        console.log('response: ', response);
+        const query  = await response.text();
+        console.log('response: ', query);
         setGeneratedQuery(query);
         toast({ title: 'Query generated successfully!' });
       } else {
         throw new Error('Failed to generate query');
       }
     } catch (error) {
+      console.error(error);
       toast({ 
         title: 'Error generating query', 
         description: 'Please try again or check your Ollama connection',

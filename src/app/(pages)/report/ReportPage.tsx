@@ -205,7 +205,6 @@ const ReportPage: React.FC = () => {
                 throw new Error("Failed to fetch report params");
             }
         } catch (error: any) {
-            console.error("Error fetching report params:", error);
             toast({
                 title: "Error",
                 description: "Failed to fetch report params. Please try again later.",
@@ -217,24 +216,19 @@ const ReportPage: React.FC = () => {
 
         try {
             const token = Cookies.get('authToken');
-            console.log(generateSchedule)
             const requestBody = {
                 reportId: editReport.id,
                 generateNow: true,
             };
-            console.log(requestBody)
             const response = await fetch(generateSchedule, {
                 method: "POST",
                 headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", },
                 body: JSON.stringify(requestBody)
             });
 
-
-
-            console.log(response)
-
             if (!response.ok) {
-                throw new Error(`Failed to schedule report. Status: ${response.status}`);
+                const result = JSON.parse(await response.text());
+                throw new Error(`${result.message}`);
             }
 
             toast({ title: "Report scheduled successfully!", description: "You will be notified when report is ready"});

@@ -15,29 +15,30 @@ export async function POST(request: NextRequest) {
     const { prompt, schemas }: RequestBody = await request.json();
 
     // Build schema context for the AI
-    const schemaText = schemas.map(schema => 
+    const schemaText = schemas.map(schema =>
       `Table: ${schema.table}\nColumns: ${schema.columns}`
     ).join('\n\n');
 
-    const systemPrompt = `You are a SQL query generator. Given a database schema and a natural language request, generate a valid SQL query.
+    const systemPrompt = `
+      You are a SQL query generator. Given a database schema and a natural language request, generate a valid SQL query.
 
-Database Schema:
-${schemaText}
+      Database Schema:
+      ${schemaText}
 
-Rules:
-1. Generate only the SQL query, no explanations
-2. Use proper SQL syntax
-3. Include appropriate WHERE clauses when needed
-4. Use JOINs when multiple tables are involved
-5. Add LIMIT clauses for large result sets when appropriate
-6. Use proper column aliases for readability
+      Rules:
+      1. Generate only the SQL query, no explanations
+      2. Use proper SQL syntax
+      3. Include appropriate WHERE clauses when needed
+      4. Use JOINs when multiple tables are involved
+      5. Add LIMIT clauses for large result sets when appropriate
+      6. Use proper column aliases for readability
 
-User Request: ${prompt}
+      User Request: ${prompt}
 
-SQL Query:`;
+      SQL Query:`;
 
     // Call Ollama API
-    const ollamaResponse = await fetch('http://127.0.0.1:11434/api/generate', {
+    const ollamaResponse = await fetch(process.env.NEXT_PUBLIC_OLLAMA_API || '', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,9 +1,6 @@
 import { RequestStatus } from "@/app/enums/RequestStatus";
 import { buildUrl } from "@/app/utils/urlBuilder";
-import { safeLocalStorage } from "@/app/utils/useLocalStorage";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { FaFileCsv, FaFileExcel, FaFilePdf, FaFileWord, FaFileCode } from 'react-icons/fa';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,13 +15,11 @@ interface ScheduledReport {
     id: string;
     name: string;
     description: string;
-    requestStatus: string;
-    fileDownloadPath: string;
-    requestDate: Date,
-    generateDate: Date,
+    status: string;
+    fileDownloadPath?: string;
+    createdAt: Date,
     report: any;
 }
-
 
 
 const ScheduledReport = () => {
@@ -47,7 +42,12 @@ const ScheduledReport = () => {
     // Get reports for current page
     const indexOfLastReport = currentPage * reportsPerPage;
     const indexOfFirstReport = indexOfLastReport - reportsPerPage;
-    const currentReports = scheduledReports.slice(indexOfFirstReport, indexOfLastReport);
+
+    const currentReports = scheduledReports.slice(indexOfFirstReport, indexOfLastReport).map(report => {
+        report.fileDownloadPath = `${downloadUrl}${report.id}`;
+        console.log('path derived:', report.fileDownloadPath);
+        return report;
+    });
 
     const goToNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
     const goToPrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
@@ -67,8 +67,6 @@ const ScheduledReport = () => {
                     },
                 });
 
-                console.log("Scheule Uri", scheduledRpdUrl)
-
                 if (response.status === 401 || response.status === 403) {
                     Cookies.remove('authToken');
                     router.push("/");
@@ -80,9 +78,10 @@ const ScheduledReport = () => {
                 }
 
                 const data = await response.json();
+                console.log('ScheduledReport: ', data);
                 setScheduledReports(data);
                 console.log("Generate date",data.generateDate)
-            } catch (error) {
+            } catch {
                 toast({
                     title: "Error",
                     description: "Failed to fetch reports. Please try again later.",
@@ -126,7 +125,7 @@ const ScheduledReport = () => {
                 const data = await response.json();
                 setScheduledPendingReports(data);
                 console.log(data)
-            } catch (error) {
+            } catch {
                 toast({
                     title: "Error",
                     description: "Failed to fetch reports. Please try again later.",
@@ -155,78 +154,43 @@ const ScheduledReport = () => {
         }
     }
 
-    const handleDownload = async (reportpath: string) => {
-        console.log("ReportPath-->", reportpath);
+    const handleDownload = async (reportPath: string) => {
         try {
             const token = Cookies.get('authToken');
-            const response = await axios.get(downloadUrl, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                params: { reportpath },
+            const response = await axios.get(reportPath, {
+                headers: { Authorization: `Bearer ${token}` },
                 responseType: "blob", // Ensure the response is treated as a file
             });
 
-            // Log headers to inspect the response
-            console.log('Response Headers:', response.headers);
-
-            // Extract filename from reportpath
-            const reportPathParts = reportpath.split('/');
-            const defaultFilename = reportPathParts[reportPathParts.length - 1] || 'downloaded_file';
-
-            // Get extension based on last 3 characters of reportpath
-            const fileExtension = getFileExtension(reportpath); // For example: "csv" or "pdf"
-            const filename = defaultFilename.endsWith(`.${fileExtension}`)
-                ? defaultFilename
-                : `${defaultFilename}.${fileExtension}`;
-
             // Create a URL for the downloaded file
             const blob = new Blob([response.data], { type: response.headers['content-type'] });
-            const url = window.URL.createObjectURL(blob);
+            const url = URL.createObjectURL(blob);
 
             // Create a link to download the file
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', filename);
+
+            // Use filename from backend if present
+            const contentDisposition: string = response.headers["content-disposition"];
+            let filename: string = 'download';
+            const utfMatch = contentDisposition.match(/filename[\s:=]+["']?([^";]+)["']?/i);
+            if (utfMatch?.[1]) {
+                filename = decodeURIComponent(utfMatch[1]);
+            } else {
+                // Fallback to normal filename=
+                const normalMatch = contentDisposition.match(/filename\s*=\s*"?([^";]+)"?/i);
+                if (normalMatch?.[1]) {
+                    filename = normalMatch[1];
+                }
+            }
+            link.setAttribute("download", filename);
             document.body.appendChild(link);
-
-            link.click(); // Trigger the download
-            link.remove(); // Clean up the link element
-
-            window.URL.revokeObjectURL(url); // Revoke the URL to free up memory
+            link.click();
+            link.remove();
+            URL.revokeObjectURL(url);
         } catch (error) {
             console.error('Error downloading the report:', error);
             throw new Error('Failed to download the report.');
-        }
-    };
-
-    const getFileExtension = (filename: string) => {
-        // Check if the filename ends with 'xlsx'
-        if (filename.slice(-4).toLowerCase() === 'xlsx' || filename.slice(-4).toLowerCase() === 'docx') {
-            return filename.slice(-4); // Return the last 4 characters for Excel files
-        } else {
-            return filename.slice(-3); // Return the last 3 characters for other files
-        }
-    };
-
-    // Function to get the FontAwesome icon based on the file extension
-    const getIconForExtension = (extension: string) => {
-        switch (extension) {
-            case "xlsx":
-            case "xls":
-                return <FaFileExcel style={{ color: "green" }} />;
-            case "pdf":
-                return <FaFilePdf style={{ color: "red" }} />;
-            case "doc":
-            case "docx":
-                return <FaFileWord style={{ color: "blue" }} />;
-            case "csv":
-                return <FaFileCsv style={{ color: "orange" }} />;
-            case "json":
-                return <FaFileCode style={{ color: "gray" }} />;
-            default:
-                return <FaFileCode />;
         }
     };
 
@@ -275,7 +239,6 @@ const ScheduledReport = () => {
                                                     <th className="px-1 sm:px-2 py-2 text-xs sm:text-sm hidden sm:table-cell">Description</th>
                                                     <th className="px-1 sm:px-2 py-2 text-xs sm:text-sm">Request Date</th>
                                                     <th className="px-1 sm:px-2 py-2 text-xs sm:text-sm hidden md:table-cell">Generate Date</th>
-                                                    <th className="px-1 sm:px-2 py-2 text-xs sm:text-sm">File</th>
                                                     <th className="px-1 sm:px-2 py-2 text-xs sm:text-sm">Status</th>
                                                     <th className="px-1 sm:px-2 py-2 text-xs sm:text-sm">Action</th>
                                                 </tr>
@@ -284,8 +247,8 @@ const ScheduledReport = () => {
                                                 {currentReports.map((scheduledReport) => (
                                                     <tr key={scheduledReport.id} className="border-b">
                                                         <td className="px-1 sm:px-2 py-2 text-xs sm:text-sm">
-                                                            <div className="truncate max-w-[120px] sm:max-w-none" title={scheduledReport.report.name}>
-                                                                {scheduledReport.report.name || ""}
+                                                            <div className="truncate max-w-[120px] sm:max-w-none" title={scheduledReport.name}>
+                                                                {scheduledReport.name || ""}
                                                             </div>
                                                         </td>
                                                         <td className="px-1 sm:px-2 py-2 text-xs sm:text-sm hidden sm:table-cell">
@@ -295,28 +258,23 @@ const ScheduledReport = () => {
                                                         </td>
                                                         <td className="px-1 sm:px-2 py-2 text-xs sm:text-sm">
                                                             <div className="text-xs">
-                                                                {new Date(scheduledReport.requestDate).toLocaleDateString()}
+                                                                {new Date(scheduledReport.report.createdAt).toLocaleDateString()}
                                                             </div>
                                                         </td>
                                                         <td className="px-1 sm:px-2 py-2 text-xs sm:text-sm hidden md:table-cell">
                                                             <div className="text-xs">
-                                                                {new Date(scheduledReport.generateDate).toLocaleDateString()}
-                                                            </div>
-                                                        </td>
-                                                        <td className="px-1 sm:px-2 py-2 text-center">
-                                                            <div className="text-lg sm:text-2xl flex justify-center items-center">
-                                                                {getIconForExtension(getFileExtension(scheduledReport.fileDownloadPath))}
+                                                                {new Date(scheduledReport.createdAt).toLocaleDateString()}
                                                             </div>
                                                         </td>
                                                         <td className="px-1 sm:px-2 py-2">
                                                             <Badge variant="default" className="bg-green-800 items-center text-[9px] sm:text-[11px] px-1 sm:px-2 py-1 rounded-xl">
-                                                                <span className="hidden sm:inline">{mapRequestStatus(Number(scheduledReport.requestStatus))}</span>
+                                                                <span className="hidden sm:inline">{(scheduledReport.status)}</span>
                                                                 <span className="sm:hidden">Done</span>
                                                             </Badge>
                                                         </td>
                                                         <td className="px-1 sm:px-2 py-2">
                                                             <button
-                                                                onClick={() => handleDownload(scheduledReport.fileDownloadPath)}
+                                                                onClick={() => handleDownload(scheduledReport.fileDownloadPath || '')}
                                                                 className="flex items-center px-1 sm:px-2 py-1 bg-white border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition"
                                                             >
                                                                 <FaDownload className="mr-1 text-xs" />
@@ -398,12 +356,12 @@ const ScheduledReport = () => {
                                                     </td>
                                                     <td className="px-2 sm:px-4 py-3 text-xs sm:text-sm">
                                                         <div className="text-xs">
-                                                            {new Date(scheduledReport.requestDate).toLocaleDateString() || ''}
+                                                            {new Date(scheduledReport.createdAt || '').toLocaleDateString() || ''}
                                                         </div>
                                                     </td>
                                                     <td className="px-2 sm:px-4 py-3">
                                                         <Badge variant="default" className="text-[9px] sm:text-[11px] px-1 sm:px-2 py-1">
-                                                            {mapRequestStatus(Number(scheduledReport.requestStatus))}
+                                                            {mapRequestStatus(Number(scheduledReport.status))}
                                                         </Badge>
                                                     </td>
                                                 </tr>

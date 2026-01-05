@@ -20,10 +20,9 @@ import { useAuth } from "@/context/AuthContext";
 
 interface UserManagement {
   id: string;
-  email: string;
   firstName: string;
   lastName: string;
-  userName: string;
+  username: string;
   phoneNumber: string;
 }
 
@@ -34,7 +33,7 @@ interface Roles {
 }
 interface Role {
   id: string;
-  email: string;
+  username: string;
   role: string;
 }
 
@@ -67,20 +66,20 @@ export default function Page() {
   const [viewDetailsSheetOpen, setViewDetailsSheetOpen] = useState(false);
   const [selectedUserDetails, setSelectedUserDetails] = useState<UserManagement | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [role, setRole] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [mode, setMode] = useState<"add" | "edit">("add");
   const [formData, setFormData] = useState<{
     firstName: string;
     lastName: string;
-    email: string;
+    username: string;
     password?: string; // Make password optional
     phoneNumber: string;
   }>({
     firstName: "",
     lastName: "",
-    email: "",
+    username: "",
     password: "", // Default value
     phoneNumber: "",
   });
@@ -104,7 +103,7 @@ export default function Page() {
   }, [selectedRole]);
 
   const clearForm = () => {
-    setEmail("");
+    setUsername("");
     setRole("");
   };
 
@@ -198,7 +197,7 @@ export default function Page() {
       const roleData = await response.json();
       setSelectedRoleId(roleData.id)
       console.log(roleData)
-      setEmail(roleData.email); // Populate email
+      setUsername(roleData.username); // Populate username
       setRole(roleData.roles?.[0] || "");   // Populate role
       setEditingRole(roleData); // Save role data for potential use
     } catch (error) {
@@ -228,8 +227,8 @@ export default function Page() {
         const roles = await response.json();
         console.log("User roles:", roles);
         
-        // Set the email and first role (assuming user has at least one role)
-        setEmail(userEmail);
+        // Set the username and first role (assuming user has at least one role)
+        setUsername(userEmail);
         if (roles && roles.length > 0) {
           setRole(roles[0].name || roles[0]);
         } else {
@@ -263,10 +262,10 @@ export default function Page() {
   }, [view]);
 
   const handleAssignRoleSubmit = async () => {
-    if (!email || !role) {
+    if (!username || !role) {
       toast({ 
         title: "Error", 
-        description: "Please select both user email and role",
+        description: "Please select both user username and role",
         variant: "destructive"
       });
       return;
@@ -286,7 +285,7 @@ export default function Page() {
         return;
       }
 
-      const payload = { email, role };
+      const payload = { username, role };
       console.log("Assigning role with payload:", payload);
       console.log("API endpoint:", API_ENDPOINTS.ASSIGN_ROLE);
 
@@ -324,7 +323,7 @@ export default function Page() {
       });
 
       // Clear form data
-      setEmail("");
+      setUsername("");
       setRole("");
 
       // Close the sheet
@@ -389,7 +388,7 @@ export default function Page() {
       setFormData({
         firstName: user.firstName || "",
         lastName: user.lastName || "",
-        email: user.email || "",
+        username: user.username || "",
         phoneNumber: user.phoneNumber || "",
       });
 
@@ -410,10 +409,10 @@ export default function Page() {
   };
 
   const handleEditAssignRoleSubmit = async () => {
-    if (!email || !role) {
+    if (!username || !role) {
       toast({ 
         title: "Error", 
-        description: "Please select both user email and role",
+        description: "Please select both user username and role",
         variant: "destructive"
       });
       return;
@@ -433,7 +432,7 @@ export default function Page() {
         return;
       }
 
-      const payload = { email, role };
+      const payload = { username, role };
       console.log("Updating role with payload:", payload);
 
       const response = await axios.put(
@@ -459,7 +458,7 @@ export default function Page() {
       });
 
       // Clear form data
-      setEmail("");
+      setUsername("");
       setRole("");
 
       // Close the sheet
@@ -500,7 +499,7 @@ export default function Page() {
   const handleAddUser = async (formData: {
     firstName: string;
     lastName: string;
-    email: string;
+    username: string;
     password?: string;
     phoneNumber: string;
   }) => {
@@ -514,7 +513,7 @@ export default function Page() {
 
       // Prepare the payload according to the backend RegisterModel
       const payload = {
-        email: formData.email,
+        username: formData.username,
         firstName: formData.firstName,
         lastName: formData.lastName,
         phoneNumber: formData.phoneNumber,
@@ -524,12 +523,6 @@ export default function Page() {
 
       const requestUrl = buildUrl(API_ENDPOINTS.REGISTER);
       
-      console.log("=== USER CREATION REQUEST DEBUG ===");
-      console.log("Request URL:", requestUrl);
-      console.log("Payload:", JSON.stringify(payload, null, 2));
-      console.log("Auth token present:", !!token);
-      console.log("User context:", user);
-      console.log("Form data:", formData);
 
       const response = await axios.post(
         requestUrl,
@@ -555,7 +548,7 @@ export default function Page() {
       setFormData({
         firstName: "",
         lastName: "",
-        email: "",
+        username: "",
         password: "",
         phoneNumber: "",
       });
@@ -700,7 +693,7 @@ export default function Page() {
   const handleEditUser = async (formData: {
     firstName: string;
     lastName: string;
-    email: string;
+    username: string;
     phoneNumber: string;
   }) => {
     if (!userId) {
@@ -753,7 +746,7 @@ export default function Page() {
       setFormData({
         firstName: "",
         lastName: "",
-        email: "",
+        username: "",
         phoneNumber: "",
       });
 
@@ -837,7 +830,7 @@ export default function Page() {
                     setFormData({
                       firstName: "",
                       lastName: "",
-                      email: "",
+                      username: "",
                       password: "",
                       phoneNumber: "",
                     }); // Reset formData for add mode
@@ -899,17 +892,17 @@ export default function Page() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                        Email
+                      <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                        Email / Username:
                       </label>
                       <input
-                        id="email"
-                        name="email"
-                        type="email"
+                        id="username"
+                        name="username"
+                        type="text"
                         required
-                        value={formData.email}
+                        value={formData.username}
                         onChange={(e) =>
-                          setFormData((prev) => ({ ...prev, email: e.target.value }))
+                          setFormData((prev) => ({ ...prev, username: e.target.value }))
                         }
                         className="mt-1 block w-full p-2 border-gray-300 shadow-sm sm:text-sm rounded-md"
                       />
@@ -1011,10 +1004,9 @@ export default function Page() {
             </div>
             )}
 
-            {renderTable(userManagements, ["Email", "User Name", "Phone Number"], (user) => (
+            {renderTable(userManagements, ["Email / User Name", "Phone Number", "Actions"], (user) => (
               <tr key={user.id} className="border-b hover:bg-gray-50">
-                <td className="px-6 py-3 text-sm text-gray-700">{user.email}</td>
-                <td className="px-6 py-3 text-sm text-gray-700">{user.userName}</td>
+                <td className="px-6 py-3 text-sm text-gray-700">{user.username}</td>
                 <td className="px-6 py-3 text-sm text-gray-700">{user.phoneNumber || "N/A"}</td>
                 <td className="px-6 py-3">
                   <DropdownMenu>
@@ -1039,8 +1031,8 @@ export default function Page() {
                         Edit
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => { 
-                        console.log("Assign Role clicked for user:", user.email);
-                        setEmail(user.email); 
+                        console.log("Assign Role clicked for user:", user.username);
+                        setUsername(user.username); 
                         setAssignRoleSheetOpen(true); 
                         setMode("add");
                       }}>
@@ -1048,8 +1040,8 @@ export default function Page() {
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => {
-                          console.log("Edit Role clicked for user:", user.id, user.email);
-                          getUserRoles(user.id, user.email);
+                          console.log("Edit Role clicked for user:", user.id, user.username);
+                          getUserRoles(user.id, user.username);
                           setAssignRoleSheetOpen(true);
                           setMode("edit");
                           setUserId(user.id);
@@ -1106,8 +1098,8 @@ export default function Page() {
                     <p className="text-sm text-gray-900">{selectedUserDetails.id}</p>
                   </div>
                   <div>
-                    <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
-                    <p className="text-sm text-gray-900">{selectedUserDetails.email}</p>
+                    <label className="block mb-1 text-sm font-medium text-gray-700">Email / Username</label>
+                    <p className="text-sm text-gray-900">{selectedUserDetails.username}</p>
                   </div>
                   <div>
                     <label className="block mb-1 text-sm font-medium text-gray-700">First Name</label>
@@ -1116,10 +1108,6 @@ export default function Page() {
                   <div>
                     <label className="block mb-1 text-sm font-medium text-gray-700">Last Name</label>
                     <p className="text-sm text-gray-900">{selectedUserDetails.lastName}</p>
-                  </div>
-                  <div>
-                    <label className="block mb-1 text-sm font-medium text-gray-700">Username</label>
-                    <p className="text-sm text-gray-900">{selectedUserDetails.userName}</p>
                   </div>
                   <div>
                     <label className="block mb-1 text-sm font-medium text-gray-700">Phone Number</label>
@@ -1149,10 +1137,10 @@ export default function Page() {
             <div className="p-4">
               <label className="block mb-2 text-sm font-medium">Email</label>
               <Input
-                type="email"
-                value={email || ""}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter user email"
+                type="text"
+                value={username || ""}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter user username"
                 className="mb-4"
               />
               <label className="block mb-2 text-sm font-medium">Role</label>
@@ -1190,7 +1178,6 @@ export default function Page() {
           </SheetContent>
         </Sheet>
 
-        {/* {view === "Policies" && <div className="text-gray-600">Policies content coming soon...</div>} */}
       </div>
     </div>
   );
@@ -1199,7 +1186,6 @@ export default function Page() {
 function renderTable<T>(data: T[], headers: string[], renderRow: (item: T) => JSX.Element): JSX.Element {
   // Safety check: ensure data is an array
   if (!Array.isArray(data)) {
-    console.warn("renderTable received non-array data:", data);
     return (
       <div className="overflow-x-auto">
         <div className="text-center py-4 text-gray-500">
@@ -1219,9 +1205,6 @@ function renderTable<T>(data: T[], headers: string[], renderRow: (item: T) => JS
                 {header}
               </th>
             ))}
-            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Actions
-            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">{data.map(renderRow)}</tbody>

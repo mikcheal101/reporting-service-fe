@@ -67,6 +67,8 @@ const SignInPage = () => {
                 formData
             );
 
+            console.log(response);
+
             // Check if the API response indicates success
             if (!response.data.success) {
                 setError(response.data.message || "Authentication failed");
@@ -75,6 +77,8 @@ const SignInPage = () => {
 
             const { token } = response.data.data;
             const tokenPayload = JSON.parse(atob(token.split(".")[1])) as TokenPayload;
+
+            console.log('token: ', tokenPayload);
 
             const user = {
                 name: `${tokenPayload.given_name} ${tokenPayload.family_name}`,
