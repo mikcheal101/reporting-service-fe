@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
+// app/layout.tsx
+"use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AuthProvider } from "@/context/AuthContext";
-import { SidebarProviderToggle } from "../context/SidebarContext";
 import { ReportProvider } from "@/context/ReportContext";
 import { ReportProviderParameter } from "@/context/ParameterContext";
 import QueryProvider from "@/providers/QueryProvider";
 import { Toaster } from "@/components/ui/toaster";
-import SessionTimeout from "@/components/SessionTimeout";
+import AuthProvider from "./context/auth.provider";
+import { useEffect } from "react";
+import SidebarContextProvider from "./context/sidebar.provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,16 +21,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Fortuna",
-  description: "Loan Management Solution",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  useEffect(() => {
+    document.title = "Fortuna | Report Management System";
+  });
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -39,17 +39,16 @@ export default function RootLayout({
         <QueryProvider>
           <AuthProvider>
             <SidebarProvider>
-              <SidebarProviderToggle>
+              <SidebarContextProvider>
                 <ReportProvider>
                   <ReportProviderParameter>
                     <div className="flex-1">
                       {children}
-                      <SessionTimeout />
                     </div>
                     <Toaster />
                   </ReportProviderParameter>
                 </ReportProvider>
-              </SidebarProviderToggle>
+              </SidebarContextProvider>
             </SidebarProvider>
           </AuthProvider>
         </QueryProvider>
@@ -57,4 +56,4 @@ export default function RootLayout({
     </html>
   );
 }
-
+

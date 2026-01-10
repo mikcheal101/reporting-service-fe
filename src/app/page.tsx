@@ -1,24 +1,24 @@
-
 // app/page.tsx
 "use client";
 
 
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "./hooks/auth/use-auth";
 
 export default function Home() {
     const router = useRouter();
-    const [isSignedIn, setIsSignedIn] = useState(false);
+    const { user, loading } = useAuth();
 
     useEffect(() => {
-        // Check the sign-in status and redirect accordingly
-        if (isSignedIn) {
-            router.push("/dashboard");
-        } else {
-            router.push("/signin");
+        if (!loading) {
+            if (user) {
+                router.replace('/dashboard');
+            } else {
+                router.replace('/signin');
+            }
         }
-    }, [isSignedIn, router]);
+    }, [user, loading, router]);
 
     return null;
 }

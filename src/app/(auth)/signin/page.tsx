@@ -3,7 +3,6 @@
 
 import SignInPage from "./SignInPage";
 
+const SignIn = () => <SignInPage />;
 
-export default function SignIn() {
-    return <SignInPage />;
-}
+export default SignIn;

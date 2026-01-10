@@ -5,5 +5,5 @@ export enum Frequency
     Weekly=2,
     Monthly=3,
     Biannual=4,
-    Annualy=5
+    Annually=5
 }

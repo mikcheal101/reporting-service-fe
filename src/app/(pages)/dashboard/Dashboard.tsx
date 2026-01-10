@@ -1,4 +1,3 @@
-import ReportCard from "@/components/ReportCard";
 import AIInsightCard from "@/components/AIInsightCard";
 import { mockReportStatistics, mockAIInsights, mockReportAnalytics } from "@/data/mockDashboard";
 
