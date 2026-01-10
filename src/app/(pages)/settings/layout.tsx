@@ -2,7 +2,7 @@ import React from "react";
 
 import AppSidebar from "@/components/app-sidebar";
 import Navbar from "@/components/navbar";
-import Settings from "./settings";
+import Settings from "./page";
 
 const SettingsLayout: React.FC<{ children: React.ReactNode }> = ({
   children,

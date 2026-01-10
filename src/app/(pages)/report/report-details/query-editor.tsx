@@ -16,7 +16,6 @@ type QueryEditorProps = {
 };
 
 const QueryEditor: React.FC<QueryEditorProps> = ({
-  defaultTab = "editor",
   report,
 }) => {
   const {

@@ -1,6 +1,6 @@
 // app/utils/render-table.tsx
 "use client";
-import React from "react";
+import React, { JSX } from "react";
 
 const renderTable = <T,>(data: T[], headers: string[], renderRow: (item: T) => JSX.Element): JSX.Element => {
   // Safety check: ensure data is an array

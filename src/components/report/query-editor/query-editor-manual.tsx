@@ -10,6 +10,7 @@ import ControlledEditor from "@uiw/react-codemirror";
 import { Code, Loader2, Play, Plus, Save, Settings, Trash2 } from "lucide-react";
 import { sql } from "@codemirror/lang-sql";
 import IQueryParameter from "@/types/report/iquery-parameter";
+import { QueryParameterValue } from "@/types/report/query-parameter-value";
 
 type QueryEditorManualProps = {
     query: string;
@@ -17,7 +18,7 @@ type QueryEditorManualProps = {
     isLoading: boolean;
     isTestSuccessful: boolean;
     parameters: Array<string>;
-    parameterValues: Record<string, string>;
+    parameterValues: Record<string, QueryParameterValue>;
     sqlToJsTypeMap: Record<string, string>;
     runTest: () => void;
     runExecute: () => void;
@@ -196,7 +197,7 @@ const QueryEditorManual = ({
                       value={
                         param.isDetected
                           ? parameterValues[param.name]?.toString() || ""
-                          : param.value
+                          : param.value ?? ""
                       }
                       onChange={(e) => {
                         if (param.isDetected) {
