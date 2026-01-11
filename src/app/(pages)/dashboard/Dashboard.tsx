@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
                             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 bg-clip-text text-transparent">
                                 Dashboard
                             </h1>
-                            <p className="text-gray-600 text-sm sm:text-base lg:text-lg font-medium">Welcome back! Here's what's happening with your reports today.</p>
+                            <p className="text-gray-600 text-sm sm:text-base lg:text-lg font-medium">Welcome back! Here is what is happening with your reports today.</p>
                         </div>
                         <div className="flex sm:hidden items-center space-x-2 text-xs font-semibold text-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 px-3 py-1.5 rounded-full border border-emerald-200 shadow-sm self-start">
                             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-sm"></div>

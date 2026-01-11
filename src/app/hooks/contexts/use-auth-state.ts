@@ -12,10 +12,15 @@ const useAuthState = (): IAuthContextType => {
 
   // Initialize app
   const initUser = async () => {
-    setLoading(true);
-    const fetchedUser = await authService.meAsync();
-    setUser(fetchedUser);
-    setLoading(false);
+
+    try {
+      setLoading(true);
+      const fetchedUser = await authService.meAsync();
+      setUser(fetchedUser);
+    } finally {
+      setLoading(false);
+    }
+
   }
 
   useEffect(() => {
