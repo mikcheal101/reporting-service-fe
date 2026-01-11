@@ -4,7 +4,8 @@ module.exports = {
       name: 'ra',
       cwd: 'C:/Users/product_user/.www/frontend',
 
-      script: '.next/standalone/server.js',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 8090',
 
       exec_mode: 'fork',
       instances: 1,
