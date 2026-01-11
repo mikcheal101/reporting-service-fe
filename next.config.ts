@@ -3,9 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
-  // Generate export build for Docker
-  output: "export",
-
   images: {
     remotePatterns: [
       {
