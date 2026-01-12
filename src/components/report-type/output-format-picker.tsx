@@ -5,14 +5,14 @@ import { OutputFormat } from "@/app/enums/OutputFormat";
 import IReportType from "@/types/report-type/ireport-type";
 
 type renderOutPutFormatProps = {
-    form: IReportType;
-    setForm: React.Dispatch<React.SetStateAction<IReportType>>;
+  form: IReportType;
+  setForm: React.Dispatch<React.SetStateAction<IReportType>>;
 };
 
 const renderOutPutFormat = ({ form, setForm }: renderOutPutFormatProps) => (
   <select
     name="outputType"
-    value={form.outputType || OutputFormat.Excel}
+    value={form.outputType !== undefined && form.outputType !== null && form.outputType >= 0 ? form.outputType : "" }
     onChange={(e) =>
       setForm((prev) => ({
         ...prev,
