@@ -6,6 +6,7 @@ import { toast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import IScheduleReport from "@/types/report/ischedule-report";
 import { AxiosError } from "axios";
+import { TOAST_TITLES } from "../../constants/toast-titles.constant";
 
 const useScheduleReport = () => {
     const queryClient = useQueryClient();
@@ -13,12 +14,12 @@ const useScheduleReport = () => {
         mutationFn: scheduleReportAsync,
         onSuccess: (scheduledReport: boolean) => {
             if (scheduledReport)
-                toast({ title: "Report scheduled successfully!", description: "You will be notified when report is ready" });
+                toast({ title: "Report scheduled successfully!", description: "You will be notified when report is ready", variant: "success" });
             else 
-                toast({ title: "Failed to schedule report", description: "Report is not scheduled" });
+                toast({ title: TOAST_TITLES.FAILED_TO_SCHEDULE_REPORT, description: "Report is not scheduled", variant: "destructive" });
         },
         onError: (error: AxiosError<{ message: string}>) => {
-            toast({ title: "Failed to schedule report", description: `Error: ${error.response?.data?.message}` });
+            toast({ title: TOAST_TITLES.FAILED_TO_SCHEDULE_REPORT, description: error.response?.data?.message || "Something went wrong. Please try again.", variant: "destructive" });
         },
     });
 };

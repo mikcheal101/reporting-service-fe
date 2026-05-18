@@ -5,6 +5,7 @@ import { downloadReportAsync } from "@/app/services/report/report-service";
 import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { TOAST_TITLES } from "../../../constants/toast-titles.constant";
 
 const useDownloadReport = () => (useMutation<{ blob: Blob; filename: string; }, AxiosError<{ message: string }>, string>({
     mutationFn: downloadReportAsync,
@@ -20,8 +21,9 @@ const useDownloadReport = () => (useMutation<{ blob: Blob; filename: string; }, 
     },
     onError: (error: AxiosError<{ message: string }>) => {
         toast({
-            title: 'Download failed',
+            title: TOAST_TITLES.DOWNLOAD_FAILED,
             description: error.response?.data?.message || 'Download failed',
+            variant: 'destructive',
         });
     },
 }));

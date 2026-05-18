@@ -1,0 +1,17 @@
+export const QUERY_KEYS = {
+  CONNECTIONS: 'connections',
+  CONNECTION_TABLES: 'connection-tables',
+  REPORTS: 'reports',
+  REPORT: 'report',
+  REPORT_PARAMETERS: 'report-parameters',
+  USERS: 'users',
+  USER: 'user',
+  USER_ROLES: 'user-roles',
+  USER_ROLE: 'user-role',
+  USER_PERMISSIONS: 'user-permissions',
+  REPORT_TYPES: 'report-types',
+  ROLES: 'roles',
+  PERMISSIONS: 'permissions',
+  PENDING_REPORTS: 'pending-reports',
+  GENERATED_REPORTS: 'generated-reports',
+} as const;

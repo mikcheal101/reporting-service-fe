@@ -26,24 +26,24 @@ const SettingsRolesTable = ({
   const { roles, triggerDeleteRoleModal, triggerUpdateRole } =
     useSettingsRolesTable({ setForm, setIsDeleteModalOpen, setIsRoleFormOpen });
 
-  return renderTable(roles, ["Name", "Permissions"], (role: IRole) => (
-    <tr key={role.id} className="border-b hover:bg-gray-50">
-      <td className="px-6 py-3 w-[20%]">{role.name || ""}</td>
-      <td className="px-6 py-3">
+  return renderTable(roles, ["Name", "Permissions", ""], (role: IRole) => (
+    <tr key={role.id} className="hover:bg-muted/30 transition-colors">
+      <td className="px-4 py-3.5 w-[20%] text-sm font-medium text-foreground">{role.name || ""}</td>
+      <td className="px-4 py-3.5 text-sm text-muted-foreground">
         {role.permissions?.map((permission) => permission.name).join(",  ") ||
           ""}
       </td>
-      <td className="px-6 py-3 text-right w-[10%]">
+      <td className="px-4 py-3 text-right w-[10%]">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Actions</Button>
+            <Button variant="outline" size="sm" className="h-8 text-xs">Actions</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => triggerDeleteRoleModal(role)}>
-              Delete Role
-            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => triggerUpdateRole(role)}>
               Update Role
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => triggerDeleteRoleModal(role)}>
+              Delete Role
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

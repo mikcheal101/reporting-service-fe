@@ -1,7 +1,6 @@
-// components/settings/settings-page-toolbar.tsx
 "use client";
 
-import { FaKey, FaUsers } from "react-icons/fa";
+import { Users, KeyRound } from "lucide-react";
 
 type SettingsPageToolBarProps = {
   view: string;
@@ -10,32 +9,26 @@ type SettingsPageToolBarProps = {
 
 const SettingsPageToolBar = ({ view, setView }: SettingsPageToolBarProps) => {
   return (
-    <div className="h-auto w-full p-2 sticky bg-[#FFFDF4] shadow-md border-b border-gray-300 top-0 z-50">
-      <ul className="flex justify-end space-x-6">
+    <div className="border-b border-border bg-card">
+      <div className="flex items-center gap-1 px-4 py-2">
         {[
-          { label: "Users", icon: <FaUsers size={18} />, viewKey: "Users" },
-          { label: "Roles", icon: <FaKey size={18} />, viewKey: "Roles" },
-          // { label: "Policies", icon: <FaFileAlt size={18} />, viewKey: "Policies" },
+          { label: "Users", icon: <Users className="h-4 w-4" />, viewKey: "Users" },
+          { label: "Roles", icon: <KeyRound className="h-4 w-4" />, viewKey: "Roles" },
         ].map(({ label, icon, viewKey }) => (
-          <li key={viewKey}>
-            <button
-              className={`flex items-center space-x-2 py-2 px-3 rounded-md transition-all duration-150 
-                bg-transparent text-gray-800 relative ${
-                  view === viewKey
-                    ? "text-orange-500 font-medium"
-                    : "text-gray-600"
-                }`}
-              onClick={() => setView(viewKey)}
-            >
-              {icon}
-              <span className="text-sm">{label}</span>
-              {view === viewKey && (
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-orange-500 rounded-sm"></span>
-              )}
-            </button>
-          </li>
+          <button
+            key={viewKey}
+            className={`inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all ${
+              view === viewKey
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            }`}
+            onClick={() => setView(viewKey)}
+          >
+            {icon}
+            <span>{label}</span>
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

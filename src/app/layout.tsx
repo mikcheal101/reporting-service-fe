@@ -28,7 +28,14 @@ export default function RootLayout({
 }>) {
 
   useEffect(() => {
-    document.title = "Fortuna | Report Management System";
+    document.title = "Alcestis Reporting";
+    let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = '/alcestis-icon.svg';
   });
   return (
     <html lang="en" suppressHydrationWarning>

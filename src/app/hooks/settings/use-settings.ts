@@ -2,12 +2,13 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { FE_ROUTES } from "../../constants/routes.constant";
 
 const paths = {
-    userManagement: "/settings",
+    userManagement: FE_ROUTES.SETTINGS,
     //    userPreference: "/settings/user-preference",
-    system: "/settings/system",
-    //  auditLogs: "/settings/audit-logs"
+    system: FE_ROUTES.SETTINGS_SYSTEM,
+    auditLogs: "/settings/audit-logs",
 };
 
 const useSettings = () => {

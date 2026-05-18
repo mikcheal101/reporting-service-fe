@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { HiOutlineLogout, HiArrowLeft } from "react-icons/hi";
+import { LogOut, ArrowLeft, User } from "lucide-react";
 import profile from "../../public/assets/profile.png";
 import { SidebarTrigger } from "./ui/sidebar";
+import { Button } from "./ui/button";
 import NotificationIcon from "./NotificationIcon";
 import INavbarProps from "@/types/components/navbar/inavbar-props";
 import useNavbar from "./hooks/use-navbar";
@@ -15,13 +16,14 @@ const Navbar = (props: INavbarProps) => {
     <header className={`flex items-center ${hook.themeStyle}`}>
       <div className="flex items-center gap-2 sm:gap-3">
         {hook.showBackButton && (
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={hook.handleBackClick}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 mr-1 sm:mr-2"
             aria-label="Go back"
           >
-            <HiArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-          </button>
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </Button>
         )}
         <SidebarTrigger />
         <div className="text-lg sm:text-2xl font-bold truncate">
@@ -36,7 +38,7 @@ const Navbar = (props: INavbarProps) => {
               className="flex items-center gap-2 cursor-pointer"
               onClick={hook.toggleDropdown}
             >
-              <p className="font-medium text-gray-800 hover:text-gray-900 flex items-center gap-1">
+              <p className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1">
                 {hook.user?.fullName.toUpperCase()}
               </p>
               <Image
@@ -44,46 +46,53 @@ const Navbar = (props: INavbarProps) => {
                 alt="Profile Picture"
                 width={40}
                 height={40}
-                className="w-10 h-10 rounded-full border-2 border-gray-200 hover:border-gray-400"
+                className="w-10 h-10 rounded-full border-2 border-border hover:border-primary transition-colors"
               />
             </div>
 
             {hook.isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg z-10 border border-gray-200">
+              <div className="absolute right-0 mt-2 w-64 bg-card rounded-xl shadow-lg z-10 border border-border">
                 <div className="p-4">
-                  {/* User Details */}
                   {hook.user?.username && (
                     <div className="mb-2">
-                      <p className="text-sm font-medium text-gray-700">
+                      <p className="text-sm font-medium text-muted-foreground">
                         Email / Username:
                       </p>
-                      <p className="text-sm text-gray-600 truncate">
+                      <p className="text-sm text-card-foreground truncate">
                         {hook.user?.username}
                       </p>
                     </div>
                   )}
                   {hook.user?.phone && (
                     <div className="mb-3">
-                      <p className="text-sm font-medium text-gray-700">
+                      <p className="text-sm font-medium text-muted-foreground">
                         Phone:
                       </p>
-                      <p className="text-sm text-gray-600 truncate">
+                      <p className="text-sm text-card-foreground truncate">
                         {hook.user?.phone}
                       </p>
                     </div>
                   )}
 
-                  {/* Divider */}
-                  <hr className="border-gray-200 my-2" />
+                  <hr className="border-border my-2" />
 
-                  {/* Sign Out Button */}
-                  <button
-                    onClick={hook.handleSignOut}
-                    className="flex items-center justify-center gap-2 w-full px-4 py-2 text-sm font-semibold text-red-600 bg-gray-50 hover:bg-red-100 rounded-lg transition duration-300"
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start gap-2 text-card-foreground hover:text-card-foreground hover:bg-muted/50"
+                    onClick={hook.handleProfileClick}
                   >
-                    <HiOutlineLogout size={20} className="text-red-600" />
+                    <User className="w-4 h-4" />
+                    Profile
+                  </Button>
+
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start gap-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+                    onClick={hook.handleSignOut}
+                  >
+                    <LogOut className="w-4 h-4" />
                     Sign Out
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}

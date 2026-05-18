@@ -15,7 +15,7 @@ type SettingsUsersViewProps = {
 const SettingsUsersView = ({ selectedUser, viewDetailsSheetOpen, setViewDetailsSheetOpen }: SettingsUsersViewProps) => {
   return (
     <Sheet open={viewDetailsSheetOpen} onOpenChange={setViewDetailsSheetOpen}>
-      <SheetContent className="w-[30%]">
+      <SheetContent className="w-full sm:max-w-[400px]">
         <SheetHeader>
           <SheetTitle>User Details</SheetTitle>
           <SheetDescription>
@@ -25,50 +25,26 @@ const SettingsUsersView = ({ selectedUser, viewDetailsSheetOpen, setViewDetailsS
         <div className="p-4 space-y-4">
           {selectedUser && (
             <>
-              <div>
-                <label className="block mb-1 text-sm font-medium text-gray-700">
-                  User ID
-                </label>
-                <p className="text-sm text-gray-900">
-                  {selectedUser.id}
-                </p>
-              </div>
-              <div>
-                <label className="block mb-1 text-sm font-medium text-gray-700">
-                  Email / Username
-                </label>
-                <p className="text-sm text-gray-900">
-                  {selectedUser.username}
-                </p>
-              </div>
-              <div>
-                <label className="block mb-1 text-sm font-medium text-gray-700">
-                  First Name
-                </label>
-                <p className="text-sm text-gray-900">
-                  {selectedUser.firstName}
-                </p>
-              </div>
-              <div>
-                <label className="block mb-1 text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
-                <p className="text-sm text-gray-900">
-                  {selectedUser.lastName}
-                </p>
-              </div>
-              <div>
-                <label className="block mb-1 text-sm font-medium text-gray-700">
-                  Phone Number
-                </label>
-                <p className="text-sm text-gray-900">
-                  {selectedUser.phone || "N/A"}
-                </p>
-              </div>
+              {[
+                { label: "User ID", value: selectedUser.id },
+                { label: "Email / Username", value: selectedUser.username },
+                { label: "First Name", value: selectedUser.firstName },
+                { label: "Last Name", value: selectedUser.lastName },
+                { label: "Phone Number", value: selectedUser.phone || "N/A" },
+              ].map(({ label, value }) => (
+                <div key={label}>
+                  <label className="block mb-1 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {label}
+                  </label>
+                  <p className="text-sm text-gray-900 bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                    {value}
+                  </p>
+                </div>
+              ))}
             </>
           )}
         </div>
-        <SheetFooter className="flex justify-end">
+        <SheetFooter className="flex justify-end px-4 pb-4">
           <Button
             variant="secondary"
             onClick={() => setViewDetailsSheetOpen(false)}

@@ -1,7 +1,7 @@
-// app/components/report-type/output-format-picker.tsx
 "use client";
 
 import { OutputFormat } from "@/app/enums/OutputFormat";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import IReportType from "@/types/report-type/ireport-type";
 
 type renderOutPutFormatProps = {
@@ -10,28 +10,28 @@ type renderOutPutFormatProps = {
 };
 
 const renderOutPutFormat = ({ form, setForm }: renderOutPutFormatProps) => (
-  <select
-    name="outputType"
-    value={form.outputType !== undefined && form.outputType !== null && form.outputType >= 0 ? form.outputType : "" }
-    onChange={(e) =>
+  <Select
+    value={form.outputType !== undefined && form.outputType !== null && form.outputType >= 0 ? String(form.outputType) : ""}
+    onValueChange={(value) =>
       setForm((prev) => ({
         ...prev,
-        outputType: parseInt(e.target.value), // Ensure value is numeric
+        outputType: parseInt(value),
       }))
     }
-    className="w-full border rounded px-3 py-2 text-sm"
   >
-    <option value="" disabled>
-      Select Output Type
-    </option>
-    {Object.entries(OutputFormat)
-      .filter(([key]) => isNaN(Number(key)))
-      .map(([key, value]) => (
-        <option key={value} value={value}>
-          {key}
-        </option>
-      ))}
-  </select>
+    <SelectTrigger>
+      <SelectValue placeholder="Select Output Type" />
+    </SelectTrigger>
+    <SelectContent>
+      {Object.entries(OutputFormat)
+        .filter(([key]) => isNaN(Number(key)))
+        .map(([key, value]) => (
+          <SelectItem key={value} value={String(value)}>
+            {key}
+          </SelectItem>
+        ))}
+    </SelectContent>
+  </Select>
 );
 
 export default renderOutPutFormat;

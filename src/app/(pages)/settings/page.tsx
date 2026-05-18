@@ -1,6 +1,6 @@
-// app/(pages)/settings/page.tsx
 "use client";
 
+import { FadeIn } from "@/components/ui/fade-in";
 import SettingsPageToolBar from "@/components/settings/settings-page-toolbar";
 import SettingUsersPage from "@/components/settings/settings-users-page";
 import useSettingsPage from "@/app/hooks/settings/use-settings-page";
@@ -23,40 +23,45 @@ export default function Settings() {
   } = useSettingsPage();
 
   return (
-    <div className="flex flex-col bg-white">
-      <SettingsPageToolBar view={view} setView={setView} />
+    <div className="flex flex-col">
+      <FadeIn delay={0} direction="up">
+        <SettingsPageToolBar view={view} setView={setView} />
+      </FadeIn>
 
-      {/* Main Content */}
-      <div className="w-full bg-white p-4">
-        {view === "Users" && (
-          <SettingUsersPage
-            mode={mode}
-            setMode={setMode}
+      <FadeIn delay={100} direction="up">
+        <div className="p-4 lg:p-6">
+          <div className="bg-card shadow-lg rounded-lg border border-border">
+            <div className="p-4 lg:p-6">
+              {view === "Users" && (
+                <SettingUsersPage
+                  mode={mode}
+                  setMode={setMode}
+                  selectedUser={selectedUser}
+                  setSelectedUser={setSelectedUser}
+                  setViewDetailsSheetOpen={setViewDetailsSheetOpen}
+                  setAssignRoleSheetOpen={setAssignRoleSheetOpen}
+                />
+              )}
+              {view === "Roles" && (
+                <SettingsRolePage />
+              )}
+            </div>
+          </div>
+
+          <SettingsUsersView
             selectedUser={selectedUser}
-            setSelectedUser={setSelectedUser}
+            viewDetailsSheetOpen={viewDetailsSheetOpen}
             setViewDetailsSheetOpen={setViewDetailsSheetOpen}
-            setAssignRoleSheetOpen={setAssignRoleSheetOpen}
           />
-        )}
-        {view === "Roles" && (
-          <SettingsRolePage />
-        )}
 
-        {/* View Details Sheet */}
-        <SettingsUsersView
-          selectedUser={selectedUser}
-          viewDetailsSheetOpen={viewDetailsSheetOpen}
-          setViewDetailsSheetOpen={setViewDetailsSheetOpen}
-        />
-
-        {/* Assign Role Sheet */}
-        <SettingsAssignUserRolePage
-          mode={mode}
-          selectedUser={selectedUser}
-          setAssignRoleSheetOpen={setAssignRoleSheetOpen}
-          assignRoleSheetOpen={assignRoleSheetOpen}
-        />
-      </div>
+          <SettingsAssignUserRolePage
+            mode={mode}
+            selectedUser={selectedUser}
+            setAssignRoleSheetOpen={setAssignRoleSheetOpen}
+            assignRoleSheetOpen={assignRoleSheetOpen}
+          />
+        </div>
+      </FadeIn>
     </div>
   );
-};
+}

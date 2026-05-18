@@ -3,7 +3,8 @@
 
 import ConnectionListProps from "@/types/components/connection/connection-list";
 import IConnection from "@/types/connection/iconnection";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { Pencil, Trash2 } from "lucide-react";
+import { Button } from "../ui/button";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 
 const ConnectionList = ({
@@ -29,25 +30,27 @@ const ConnectionList = ({
           <td className="px-4 py-3">{connection.description || ""}</td>
           <td className="px-4 py-3 text-right">
             <div className="flex justify-end space-x-2">
-              <button
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => {
                   setIsOpen(true);
-                  handleEditConnection(connection); // Handle the editing logic
+                  handleEditConnection(connection);
                 }}
-                className="flex items-center px-3 py-2 bg-white border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition"
               >
-                <FaEdit className="mr-2" />
+                <Pencil className="mr-1 h-3 w-3" />
                 Edit
-              </button>
+              </Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <button
+                  <Button
+                    variant="destructive"
+                    size="sm"
                     onClick={() => setDeleteId(connection.id || '')}
-                    className="flex items-center px-3 py-2 bg-[#FFA500] text-white text-xs font-medium rounded transition"
                   >
-                    <FaTrash className="mr-2" />
+                    <Trash2 className="mr-1 h-3 w-3" />
                     Delete
-                  </button>
+                  </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>

@@ -6,6 +6,8 @@ import { toast } from "@/hooks/use-toast";
 import { IUser } from "@/types/auth/iuser";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { TOAST_TITLES } from "../../constants/toast-titles.constant";
+import { QUERY_KEYS } from "../../constants/query-keys.constant";
 
 const useCreateUser = () => {
     const queryClient = useQueryClient();
@@ -14,15 +16,16 @@ const useCreateUser = () => {
         mutationFn: createUserAsync,
         onSuccess: (user: IUser) => {
             toast({
-                title: "User created successfully",
+                title: TOAST_TITLES.USER_CREATED_SUCCESSFULLY,
                 description: `User ${user.fullName} (${user.username}) created successfully`,
+                variant: "success",
             });
 
-            queryClient.setQueryData<IUser[]>(["users"], (users) => [...(users || []), user]);
+            queryClient.setQueryData<IUser[]>([QUERY_KEYS.USERS], (users) => [...(users || []), user]);
         },
         onError: (error: AxiosError<{ message: string }>) => {
             toast({
-                title: "Error creating user",
+                title: TOAST_TITLES.ERROR_CREATING_USER,
                 description: error.response?.data?.message || "Error creating user",
                 variant: "destructive",
             });

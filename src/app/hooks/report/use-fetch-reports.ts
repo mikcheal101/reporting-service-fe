@@ -4,9 +4,10 @@
 import { fetchReportsAsync } from "@/app/services/report/report-service";
 import IReport from "@/types/report/ireport";
 import { useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../constants/query-keys.constant";
 
 const useFetchReports = () => (useQuery<IReport[], Error>({
-  queryKey: ["reports"],
+  queryKey: [QUERY_KEYS.REPORTS],
   queryFn: fetchReportsAsync,
   retry: 2,
 }));

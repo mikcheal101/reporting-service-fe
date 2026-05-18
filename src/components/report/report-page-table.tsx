@@ -1,7 +1,8 @@
 // components/report/report-page-table.tsx
 "use client";
 
-import { FaCalendarAlt, FaEdit, FaPencilAlt, FaTrash } from "react-icons/fa";
+import { Calendar, Pencil, PenLine, Trash2 } from "lucide-react";
+import { Button } from "../ui/button";
 import CustomAlertDialog from "../ModalComponent";
 import {
   AlertDialog,
@@ -56,27 +57,30 @@ const ReportSheetTable = ({
           <td className="px-4 py-3">{report.description}</td>
           <td className="px-4 py-3 text-right">
             <div className="flex justify-end space-x-2">
-              <button
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => fetchReportDetails(report)}
-                className="flex items-center px-3 py-2 bg-white border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition"
               >
-                <FaEdit className="mr-2" />
+                <Pencil className="mr-1 h-3 w-3" />
                 Edit Report
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => fetchReportingParams(report.id)}
-                className="flex items-center px-3 py-2 bg-white border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition"
               >
-                <FaPencilAlt className="mr-2" />
+                <PenLine className="mr-1 h-3 w-3" />
                 Edit Query
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => handleScheduleReport(report)}
-                className="flex items-center px-3 py-2 bg-white border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition"
               >
-                <FaCalendarAlt className="mr-2" />
+                <Calendar className="mr-1 h-3 w-3" />
                 Schedule
-              </button>
+              </Button>
               <CustomAlertDialog
                 isOpen={isAlertOpen}
                 onClose={cancelScheduleReport}
@@ -85,13 +89,14 @@ const ReportSheetTable = ({
 
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <button
+                  <Button
+                    variant="destructive"
+                    size="sm"
                     onClick={() => setDeleteId(report.id)}
-                    className="flex items-center px-3 py-2 border-[#FFA500] border-2 bg-white text-[#FFA500] text-xs font-medium rounded transition"
                   >
-                    <FaTrash className="mr-2" />
+                    <Trash2 className="mr-1 h-3 w-3" />
                     Delete
-                  </button>
+                  </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
@@ -104,7 +109,6 @@ const ReportSheetTable = ({
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                      className="bg-red-500 hover:none"
                       onClick={() => deleteId && handleDeleteReport(deleteId)}
                     >
                       Continue

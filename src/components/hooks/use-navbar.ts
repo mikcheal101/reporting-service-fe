@@ -3,6 +3,7 @@ import INavbar from "@/types/components/navbar/inavbar";
 import INavbarProps from "@/types/components/navbar/inavbar-props";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { FE_ROUTES } from "@/app/constants/routes.constant";
 
 const useNavbar = (props: INavbarProps): INavbar => {
     const router = useRouter();
@@ -11,7 +12,7 @@ const useNavbar = (props: INavbarProps): INavbar => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const themeStyle = props.theme === "dark" ? "" : "p-4 bg-white";
-    const showBackButton = pathname !== "/dashboard";
+    const showBackButton = pathname !== FE_ROUTES.DASHBOARD;
 
     const handleBackClick = () => router.back();
 
@@ -19,7 +20,12 @@ const useNavbar = (props: INavbarProps): INavbar => {
 
     const handleSignOut = async () => {
         await logout();
-        router.push('/');
+        router.push(FE_ROUTES.HOME);
+    }
+
+    const handleProfileClick = () => {
+        setIsDropdownOpen(false);
+        router.push(FE_ROUTES.PROFILE);
     }
 
     return {
@@ -30,6 +36,7 @@ const useNavbar = (props: INavbarProps): INavbar => {
         handleBackClick,
         toggleDropdown,
         handleSignOut,
+        handleProfileClick,
     }
 };
 

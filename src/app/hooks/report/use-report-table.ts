@@ -10,6 +10,7 @@ import useScheduleReport from "./use-schedule-report";
 import useFetchReport from "./use-fetch-report";
 import { useRouter } from "next/navigation";
 import useFetchReports from "./use-fetch-reports";
+import { FE_ROUTES } from "../../constants/routes.constant";
 
 const useReportTable = () => {
     const router = useRouter();
@@ -80,7 +81,7 @@ const useReportTable = () => {
 
     const fetchReportingParams = (id: string) => {
         setCurrentParamReportId(Number.parseInt(id));
-        router.push(`/report/report-details/${id}`);
+        router.push(`${FE_ROUTES.REPORT_DETAILS}/${id}`);
     };
 
     const handleScheduleReport = (report: IReport) => {
@@ -98,7 +99,7 @@ const useReportTable = () => {
         setIsAlertOpen(false);
     };
 
-    const AddReports = () => router.push("/report/report-details");
+    const AddReports = () => router.push(FE_ROUTES.REPORT_DETAILS);
 
 
     return {

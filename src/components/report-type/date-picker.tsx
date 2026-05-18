@@ -1,4 +1,3 @@
-// app/components/report-type/date-picker.tsx
 "use client";
 
 import IReportType from "@/types/report-type/ireport-type";
@@ -17,10 +16,10 @@ const renderDatePicker = ({fieldId, value, setForm }: renderDatePickerProps) => 
     onChange={(e) =>
       setForm((prev) => ({
         ...prev,
-        [fieldId]: e.target.value, // Update date
+        [fieldId]: e.target.value,
       }))
     }
-    className="w-full border border-[#EAB308] rounded-lg px-2 sm:px-3 py-2 shadow-sm hover:shadow-md focus:ring-2 focus:ring-[#EAB308] transition text-sm"
+    className="w-full rounded-lg border-gray-200 px-3 py-2 text-sm bg-white shadow-sm hover:shadow-md focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
   />
 );
 

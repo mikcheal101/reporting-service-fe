@@ -6,6 +6,8 @@ import { toast } from "@/hooks/use-toast";
 import { IRole } from "@/types/auth/irole";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { TOAST_TITLES } from "../../constants/toast-titles.constant";
+import { QUERY_KEYS } from "../../constants/query-keys.constant";
 
 const useCreateUserRole = () => {
     const queryClient = useQueryClient();
@@ -14,15 +16,16 @@ const useCreateUserRole = () => {
         mutationFn: createRoleAsync,
         onSuccess: (role: IRole) => {
             toast({
-                title: "User role created successfully",
-                description: `User role ${role.name} with ID ${role.id} created successfully`,
+                title: TOAST_TITLES.USER_ROLE_CREATED_SUCCESSFULLY,
+                description: `User role "${role.name}" created successfully`,
+                variant: "success",
             });
 
-            queryClient.setQueryData<IRole[]>(["user-roles"], (roles) => (roles || []).concat(role));
+            queryClient.setQueryData<IRole[]>([QUERY_KEYS.USER_ROLES], (roles) => (roles || []).concat(role));
         },
         onError: (error: AxiosError<{ message: string }>) => {
             toast({
-                title: "Error creating user role",
+                title: TOAST_TITLES.ERROR_CREATING_USER_ROLE,
                 description: error.response?.data?.message || "Error creating user role",
                 variant: "destructive",
             });

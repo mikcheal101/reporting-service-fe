@@ -1,93 +1,63 @@
+"use client";
 
 import React from "react";
+import { FadeIn } from "@/components/ui/fade-in";
+import { Button } from "@/components/ui/button";
 
 const Notifications = ()=>{
 
-
     return (
-        <div>
-     
-            <div className="mt-4">
-                <div className="bg-[#F6F6F3] min-h-screen flex justify-center items-center">
-                    <div className="bg-white w-[75%] rounded-md shadow-md p-8">
-                        <h1 className="text-xl font-bold mb-6">Update your notification preferences.</h1>
+        <FadeIn delay={100} direction="up">
+            <div className="p-4 lg:p-6">
+                <div className="rounded-xl bg-white shadow-sm border border-gray-100 p-6 lg:p-8 max-w-3xl mx-auto">
+                    <h1 className="text-xl font-bold text-gray-900 mb-6">Update your notification preferences.</h1>
 
-                        <section className="mb-8">
-                            <h2 className="text-lg font-semibold mb-4">Notify me when</h2>
-                            <ul className="space-y-4">
-                                <li className="flex justify-between items-center">
-                                    <span>Task is assigned to me</span>
-                                    <input type="checkbox" className="form-checkbox h-5 w-5 text-yellow-500"/>
-                                </li>
-                                <li className="flex justify-between items-center">
-                                    <span>A loan is created</span>
-                                    <input type="checkbox" className="form-checkbox h-5 w-5 text-yellow-500"/>
-                                </li>
-                                <li className="flex justify-between items-center">
-                                    <span>A loan is approved for payout</span>
-                                    <input type="checkbox" className="form-checkbox h-5 w-5 text-yellow-500"/>
-                                </li>
-                                <li className="flex justify-between items-center">
-                                    <span>Borrower is due for payment</span>
-                                    <input type="checkbox" className="form-checkbox h-5 w-5 text-yellow-500"/>
-                                </li>
-                            </ul>
-                        </section>
-
-                        <hr className="border-t border-gray-300 mb-8"/>
-
-                        <section>
-                            <h2 className="text-lg font-semibold mb-4">Medium</h2>
-                            <ul className="space-y-6">
-                                <li className="flex justify-between items-start">
-                                    <div>
-                                        <p className="font-medium">Email notification</p>
-                                        <p className="text-sm text-gray-600">
-                                            Receive email notifications whenever your attention is required
-                                        </p>
-                                    </div>
-                                    <input type="checkbox" className="form-checkbox h-5 w-5 text-yellow-500 mt-1"/>
-                                </li>
-                                <li className="flex justify-between items-start">
-                                    <div>
-                                        <p className="font-medium">Mobile push Notification</p>
-                                        <p className="text-sm text-gray-600">
-                                            Receive mobile notifications whenever your attention is required
-                                        </p>
-                                    </div>
-                                    <input type="checkbox" className="form-checkbox h-5 w-5 text-yellow-500 mt-1"/>
-                                </li>
-                                <li className="flex justify-between items-start">
-                                    <div>
-                                        <p className="font-medium">Desktop Notification</p>
-                                        <p className="text-sm text-gray-600">
-                                            Receive desktop notifications whenever your attention is required
-                                        </p>
-                                    </div>
-                                    <input type="checkbox" className="form-checkbox h-5 w-5 text-yellow-500 mt-1"/>
-                                </li>
-                                <li className="flex justify-between items-start">
-                                    <div>
-                                        <p className="font-medium">In-app notification</p>
-                                        <p className="text-sm text-gray-600">Show notifications in-app</p>
-                                    </div>
-                                    <input type="checkbox" className="form-checkbox h-5 w-5 text-yellow-500 mt-1"/>
-                                </li>
-                            </ul>
-                        </section>
-
-                        <div className="flex justify-end mt-8 space-x-4">
-                            <button className="px-4 py-2 border border-yellow-500 text-yellow-500 rounded-md">
-                                Cancel
-                            </button>
-                            <button className="px-4 py-2 bg-yellow-500 text-white rounded-md">
-                                Save changes
-                            </button>
+                    <section className="mb-8">
+                        <h2 className="text-base font-semibold text-gray-800 mb-4">Notify me when</h2>
+                        <div className="space-y-3">
+                            {[
+                                "Task is assigned to me",
+                                "A loan is created",
+                                "A loan is approved for payout",
+                                "Borrower is due for payment",
+                            ].map((label) => (
+                                <label key={label} className="flex justify-between items-center py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <span className="text-sm text-gray-700">{label}</span>
+                                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"/>
+                                </label>
+                            ))}
                         </div>
+                    </section>
+
+                    <hr className="border-t border-gray-100 mb-8"/>
+
+                    <section>
+                        <h2 className="text-base font-semibold text-gray-800 mb-4">Medium</h2>
+                        <div className="space-y-4">
+                            {[
+                                { title: "Email notification", desc: "Receive email notifications whenever your attention is required" },
+                                { title: "Mobile push Notification", desc: "Receive mobile notifications whenever your attention is required" },
+                                { title: "Desktop Notification", desc: "Receive desktop notifications whenever your attention is required" },
+                                { title: "In-app notification", desc: "Show notifications in-app" },
+                            ].map(({ title, desc }) => (
+                                <label key={title} className="flex justify-between items-start py-3 px-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <div>
+                                        <p className="text-sm font-medium text-gray-800">{title}</p>
+                                        <p className="text-xs text-gray-500 mt-0.5">{desc}</p>
+                                    </div>
+                                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary mt-1"/>
+                                </label>
+                            ))}
+                        </div>
+                    </section>
+
+                    <div className="flex justify-end gap-3 mt-8 pt-4 border-t border-gray-100">
+                        <Button variant="outline">Cancel</Button>
+                        <Button>Save changes</Button>
                     </div>
                 </div>
             </div>
-        </div>
+        </FadeIn>
     )
 }
 export default Notifications;

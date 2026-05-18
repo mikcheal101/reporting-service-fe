@@ -1,37 +1,32 @@
-// components/ui/main-link.tsx
 import React from "react";
 import ILink from "@/types/components/sidebar/ilink";
-import Image from "next/image";
-import dialPad from "../../../public/assets/Dialpad.png";
-import bag from "../../../public/assets/Bag.png";
-import box from "../../../public/assets/Box.png";
-import clock from "../../../public/assets/Timer.png";
-import task from "../../../public/assets/Stack.png";
+import { LayoutDashboard, Plug, Layers, FileText, Clock } from "lucide-react";
+import { FE_ROUTES } from "@/app/constants/routes.constant";
 
 export const mainLinks: ILink[] = [
   {
     label: "Dashboard",
-    href: "/dashboard",
-    icon: <Image src={dialPad} alt="Dashboard" />,
+    href: FE_ROUTES.DASHBOARD,
+    icon: <LayoutDashboard className="w-5 h-5" />,
   },
   {
     label: "Connection",
-    href: "/connection",
-    icon: <Image src={box} alt="Connection" />,
+    href: FE_ROUTES.CONNECTION,
+    icon: <Plug className="w-5 h-5" />,
   },
   {
     label: "Report Types",
-    href: "/report-type",
-    icon: <Image src={task} alt="Types" />,
+    href: FE_ROUTES.REPORT_TYPE,
+    icon: <Layers className="w-5 h-5" />,
   },
   {
     label: "Report definition",
-    href: "/report",
-    icon: <Image src={bag} alt="Report definition" />,
+    href: FE_ROUTES.REPORT,
+    icon: <FileText className="w-5 h-5" />,
   },
   {
     label: "Scheduled reports",
-    href: "/scheduled-report",
-    icon: <Image src={clock} alt="Scheduled reports" />,
+    href: FE_ROUTES.SCHEDULED_REPORT,
+    icon: <Clock className="w-5 h-5" />,
   },
 ];

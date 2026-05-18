@@ -22,8 +22,7 @@ const SettingsRolesFormPermissions = ({
         Permissions
       </label>
 
-      {/* Scrollable container for permissions */}
-      <div className="border border-gray-300 rounded p-3 overflow-y-auto h-[70vh]">
+      <div className="border border-gray-200 rounded-lg p-3 overflow-y-auto h-[70vh] bg-white shadow-sm">
         <div className="flex flex-col gap-4">
           {Object.entries(
             (permissions || []).reduce<Record<string, Array<IPermission>>>(
@@ -38,9 +37,9 @@ const SettingsRolesFormPermissions = ({
           ).map(([fieldsetName, groupPermissions]) => (
             <fieldset
               key={fieldsetName}
-              className="border border-gray-300 rounded p-3"
+              className="border border-gray-200 rounded-lg p-3"
             >
-              <legend className="text-sm font-semibold mb-2 capitalize">
+              <legend className="text-sm font-semibold mb-2 capitalize text-gray-700 px-1">
                 {fieldsetName}
               </legend>
               <table className="w-full table-fixed border-collapse">
@@ -55,7 +54,7 @@ const SettingsRolesFormPermissions = ({
                         )
                         .map((permission) => (
                           <td key={permission.id} className="px-2 py-1">
-                            <label className="flex items-center space-x-2">
+                            <label className="flex items-center gap-2 cursor-pointer">
                               <input
                                 type="checkbox"
                                 checked={form.permissions?.some(
@@ -79,9 +78,9 @@ const SettingsRolesFormPermissions = ({
                                     }));
                                   }
                                 }}
-                                className="h-4 w-4 text-[#FFBF48] border-gray-300 rounded"
+                                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                               />
-                              <span className="text-sm">
+                              <span className="text-sm text-gray-600">
                                 {permission.name.split(".")[1]}
                               </span>
                             </label>

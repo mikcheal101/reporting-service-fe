@@ -6,17 +6,19 @@ import { toast } from "@/hooks/use-toast";
 import IReport from "@/types/report/ireport";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { TOAST_TITLES } from "../../constants/toast-titles.constant";
+import { QUERY_KEYS } from "../../constants/query-keys.constant";
 
 const useUpdateReport = () => {
     const queryClient = useQueryClient();
     return useMutation<IReport, AxiosError<{message: string}>, IReport>({
         mutationFn: updateReportAsync,
         onSuccess: (updatedReport: IReport) => {
-            toast({ title: "Updated", description: "Report updated successfully." });
-            queryClient.setQueryData<IReport[]>(["reports"], (reports) => reports?.map((report) => report.id === updatedReport.id ? updatedReport : report) || []);
+            toast({ title: TOAST_TITLES.UPDATED, description: "Report updated successfully.", variant: "success" });
+            queryClient.setQueryData<IReport[]>([QUERY_KEYS.REPORTS], (reports) => reports?.map((report) => report.id === updatedReport.id ? updatedReport : report) || []);
         },
         onError: (error: AxiosError<{message: string}>) => {
-            toast({ title: "Error", description: error.response?.data?.message });
+            toast({ title: TOAST_TITLES.ERROR, description: error.response?.data?.message || "Failed to update report. Please try again.", variant: "destructive" });
         }
     });
 };

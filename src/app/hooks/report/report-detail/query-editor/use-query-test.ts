@@ -14,12 +14,14 @@ const useQueryTest = () => (useMutation<string, AxiosError<{ message: string }>,
         toast({
             title: "Success",
             description: `Query test completed successfully.`,
+            variant: "success",
         });
     },
     onError: (error: AxiosError<{ message: string }>) => {
         toast({
             title: "Error",
             description: error.response?.data.message,
+            variant: "destructive",
         });
     }
 }));

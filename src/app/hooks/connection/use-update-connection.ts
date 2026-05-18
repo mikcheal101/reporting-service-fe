@@ -6,6 +6,8 @@ import { toast } from "@/hooks/use-toast";
 import IConnection from "@/types/connection/iconnection";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { TOAST_TITLES } from "../../constants/toast-titles.constant";
+import { QUERY_KEYS } from "../../constants/query-keys.constant";
 
 const useUpdateConnection = () => {
   const queryClient = useQueryClient();
@@ -14,18 +16,20 @@ const useUpdateConnection = () => {
     mutationFn: updateConnectionAsync,
     onSuccess: (updatedConnection) => {
       toast({
-        title: "Success",
+        title: TOAST_TITLES.SUCCESS,
         description: "Connection updated successfully.",
+        variant: "success",
       });
 
       // Update the query cache for "connections"
-      queryClient.setQueryData<IConnection[]>(["connections"], (connections) => connections?.map((conn) => conn.id === updatedConnection.id ? updatedConnection : conn) || []);
+      queryClient.setQueryData<IConnection[]>([QUERY_KEYS.CONNECTIONS], (connections) => connections?.map((conn) => conn.id === updatedConnection.id ? updatedConnection : conn) || []);
 
     },
     onError: (error: AxiosError<{message: string}>) => {
       toast({
-        title: "Error",
-        description: `Failed to update connection: ${error.response?.data?.message}`,
+        title: TOAST_TITLES.ERROR,
+        description: error.response?.data?.message || "Failed to update connection. Please check your details and try again.",
+        variant: "destructive",
       });
     },
   });

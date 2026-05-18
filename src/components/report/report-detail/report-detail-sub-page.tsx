@@ -1,4 +1,3 @@
-// components/report/report-detail/report-detail-sub-page.tsx
 "use client";
 
 import React from "react";
@@ -24,42 +23,34 @@ const ReportDetailsSubPage = ({ form, setForm }: ReportDetailsPageProps) => (
     <ConnectionProvider>
       <TableDataProvider>
         <ReportDetailsLayout>
-          <div className="flex flex-col lg:flex-row h-full gap-4 lg:gap-6 p-4 lg:p-6">
-            {/* Navigation Section */}
-            <div className="w-full lg:w-1/4 lg:min-w-[320px] order-2 lg:order-1">
-              <Card className="h-fit shadow-lg border-0">
-                <ReportFormSection form={form} setForm={setForm} />
-              </Card>
+          <div className="flex flex-1 gap-0 min-h-0">
+            {/* Left Panel — Report Configuration */}
+            <div className="w-80 shrink-0 border-r border-gray-100 bg-gray-50/50 overflow-y-auto">
+              <ReportFormSection form={form} setForm={setForm} />
             </div>
 
-            {/* Main Content Area */}
-            <div className="flex-1 order-1 lg:order-2">
-              <Card className="shadow-lg border-0">
-                <CardContent className="p-3 sm:p-4 lg:p-6">
-                  <Tabs
-                    defaultValue="query-editor"
-                    className="space-y-4 lg:space-y-6"
-                  >
-                    <div className="mt-4 lg:mt-6">
+            {/* Right Panel — Query Workspace */}
+            <div className="flex-1 flex flex-col min-h-0">
+              <div className="flex-1 overflow-y-auto p-4 lg:p-6">
+                <Card className="shadow-sm border-gray-100">
+                  <CardContent className="p-4 lg:p-6">
+                    <Tabs defaultValue="query-editor" className="space-y-6">
                       <QueryEditor report={form} />
-                    </div>
 
-                    <TabsContent
-                      value="table-configurator"
-                      className="mt-4 lg:mt-6"
-                    >
-                      <TableConfigurator />
-                    </TabsContent>
+                      <TabsContent value="table-configurator">
+                        <TableConfigurator />
+                      </TabsContent>
 
-                    <TabsContent value="ai-assistant" className="mt-4 lg:mt-6">
-                      <QueryEditor defaultTab="ai" report={form} />
-                    </TabsContent>
-                  </Tabs>
-                </CardContent>
-              </Card>
-              <Toaster />
+                      <TabsContent value="ai-assistant">
+                        <QueryEditor defaultTab="ai" report={form} />
+                      </TabsContent>
+                    </Tabs>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
+          <Toaster />
         </ReportDetailsLayout>
       </TableDataProvider>
     </ConnectionProvider>

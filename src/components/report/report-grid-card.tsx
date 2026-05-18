@@ -1,5 +1,6 @@
 import React from "react";
-import { FaEdit, FaTrash, FaCalendarAlt, FaPencilAlt } from "react-icons/fa";
+import { Pencil, PenLine, Calendar, Trash2, MoreVertical } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -39,59 +40,58 @@ const ReportGridCard: React.FC<ReportProps> = ({
   } = useReportGridCard();
 
   return (
-    <div className="relative bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow border-l-4 border-[#EAB308]">
+    <div className="relative bg-card shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow border-l-4 border-primary">
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-lg font-semibold text-gray-800">
-            <span className="text-[#EAB308]">•</span> {name}
-          </h3>
-          <p className="text-sm text-gray-600">{description}</p>
+          <h3 className="text-lg font-semibold text-card-foreground">{name}</h3>
+          <p className="text-sm text-muted-foreground">{description}</p>
         </div>
         <div className="relative">
-          <button
-            className="text-gray-500 hover:text-[#EAB308]"
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground hover:text-foreground"
             onClick={toggleMenu}
           >
-            •••
-          </button>
+            <MoreVertical className="h-4 w-4" />
+          </Button>
           {isMenuOpen && (
-            <div className="absolute right-0 mt-0 w-[125px] bg-white border border-gray-200 rounded-md shadow-lg z-10">
+            <div className="absolute right-0 mt-1 w-40 bg-card border border-border rounded-md shadow-lg z-10">
               <button
-                className="flex gap-1 block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-[#FFF7E0]"
+                className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-card-foreground hover:bg-accent"
                 onClick={() => {
                   toggleMenu();
                   onEdit();
                 }}
               >
-                <FaEdit /> Edit Report
+                <Pencil className="h-3 w-3" /> Edit Report
               </button>
               <button
-                className="flex gap-1 block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-[#FFF7E0]"
+                className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-card-foreground hover:bg-accent"
                 onClick={() => {
                   toggleMenu();
                   onEditQuery();
                 }}
               >
-                <FaPencilAlt /> Edit Query
+                <PenLine className="h-3 w-3" /> Edit Query
               </button>
               <button
-                className="flex gap-1 block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-[#FFF7E0]"
+                className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-card-foreground hover:bg-accent"
                 onClick={() => {
                   toggleMenu();
                   onSchedule();
                 }}
               >
-                <FaCalendarAlt />
-                Schedule
+                <Calendar className="h-3 w-3" /> Schedule
               </button>
 
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <button
-                    className="flex gap-1 block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100"
+                    className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-destructive hover:bg-destructive/10"
                     onClick={() => onDelete()}
                   >
-                    <FaTrash /> Delete
+                    <Trash2 className="h-3 w-3" /> Delete
                   </button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>

@@ -1,4 +1,3 @@
-// app/(pages)/report/report-details/[id]/report-form-section.tsx
 "use client";
 
 import React from "react";
@@ -15,6 +14,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AlertCircle, Save, Eye } from "lucide-react";
 import useReportFormSection from "@/app/hooks/report/report-detail/use-report-form-section";
 import ReportDetailList from "./report-details-list";
 import IReport from "@/types/report/ireport";
@@ -38,148 +38,132 @@ const ReportFormSection = ({ form, setForm }: ReportFormSectionProps) => {
   } = useReportFormSection({form, setForm});
 
   return (
-    <div className="p-3 sm:p-4 lg:p-6 space-y-4">
-      <div className="space-y-4">
-        {/* Report Creation Status */}
-        {!form.id && (
-          <div className="bg-yellow-50 border border-yellow-200 rounded-md p-3 mb-4">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg
-                  className="h-5 w-5 text-yellow-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <h3 className="text-sm font-medium text-yellow-800">
-                  Create Report First
-                </h3>
-                <div className="mt-1 text-sm text-yellow-700">
-                  <p>
-                    Please fill out the form below and save the report before
-                    using the query editor.
-                  </p>
-                </div>
-              </div>
-            </div>
+    <div className="p-4 space-y-5">
+      {/* Report Creation Status */}
+      {!form.id && (
+        <div className="flex items-start gap-3 rounded-lg border border-amber-200 bg-amber-50/50 p-3">
+          <AlertCircle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-amber-800">Create Report First</p>
+            <p className="text-xs text-amber-700 mt-0.5">
+              Fill out the form and save before using the query editor.
+            </p>
           </div>
-        )}
-
-        {/* Report Name */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Report Name</Label>
-          <Input
-            name="name"
-            placeholder="Enter report name"
-            value={form.name}
-            onChange={handleInput}
-            className="w-full text-sm"
-          />
         </div>
+      )}
 
-        {/* Description */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Description</Label>
-          <Input
-            name="description"
-            placeholder="Enter description"
-            value={form.description}
-            onChange={handleInput}
-            className="w-full text-sm"
-          />
-        </div>
-
-        {/* Connection Selection */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Connection</Label>
-          {isLoadingConnections ? (
-            <Skeleton className="h-10 w-full" />
-          ) : (
-            <Select
-              required
-              value={form.connectionId}
-              onValueChange={(value) => {
-                handleInput({ name: "connectionId", value });
-              }}
-            >
-              <SelectTrigger className="w-full text-sm">
-                <SelectValue placeholder="Select a connection" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Available Connections</SelectLabel>
-                  {connections?.map((connection) => (
-                    <SelectItem key={connection.id} value={connection.id}>
-                      {connection.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          )}
-        </div>
-
-        {/* Report Type Selection */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Report Type</Label>
-          {isLoadingReportTypes ? (
-            <Skeleton className="h-10 w-full" />
-          ) : (
-            <Select
-              required
-              name="reportTypeId"
-              value={form.reportTypeId}
-              onValueChange={(value) => {
-                handleInput({ name: "reportTypeId", value });
-              }}
-            >
-              <SelectTrigger className="w-full text-sm">
-                <SelectValue placeholder="Select a report type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Available Report Types</SelectLabel>
-                  {reportTypes?.map((reportType) => (
-                    <SelectItem key={reportType.id} value={reportType.id}>
-                      {reportType.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          )}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-2 pt-4">
-          <Button
-            onClick={handleSave}
-            disabled={isSavingReport || !isFormValid() || !!form.id}
-            className="flex-1 text-sm"
-          >
-            {isSavingReport ? "Saving..." : "Save Report"}
-          </Button>
-          <Button
-            onClick={handleViewReport}
-            variant="outline"
-            className="flex-1 text-sm"
-          >
-            View Reports
-          </Button>
-        </div>
+      {/* Report Name */}
+      <div className="space-y-1.5">
+        <Label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Report Name</Label>
+        <Input
+          name="name"
+          placeholder="Enter report name"
+          value={form.name}
+          onChange={handleInput}
+          className="w-full text-sm"
+        />
       </div>
+
+      {/* Description */}
+      <div className="space-y-1.5">
+        <Label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</Label>
+        <Input
+          name="description"
+          placeholder="Enter description"
+          value={form.description}
+          onChange={handleInput}
+          className="w-full text-sm"
+        />
+      </div>
+
+      {/* Connection Selection */}
+      <div className="space-y-1.5">
+        <Label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Connection</Label>
+        {isLoadingConnections ? (
+          <Skeleton className="h-9 w-full" />
+        ) : (
+          <Select
+            required
+            value={form.connectionId}
+            onValueChange={(value) => {
+              handleInput({ name: "connectionId", value });
+            }}
+          >
+            <SelectTrigger className="w-full text-sm">
+              <SelectValue placeholder="Select a connection" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Available Connections</SelectLabel>
+                {connections?.map((connection) => (
+                  <SelectItem key={connection.id} value={connection.id}>
+                    {connection.name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+
+      {/* Report Type Selection */}
+      <div className="space-y-1.5">
+        <Label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Report Type</Label>
+        {isLoadingReportTypes ? (
+          <Skeleton className="h-9 w-full" />
+        ) : (
+          <Select
+            required
+            name="reportTypeId"
+            value={form.reportTypeId}
+            onValueChange={(value) => {
+              handleInput({ name: "reportTypeId", value });
+            }}
+          >
+            <SelectTrigger className="w-full text-sm">
+              <SelectValue placeholder="Select a report type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Available Report Types</SelectLabel>
+                {reportTypes?.map((reportType) => (
+                  <SelectItem key={reportType.id} value={reportType.id}>
+                    {reportType.name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex flex-col gap-2 pt-1">
+        <Button
+          onClick={handleSave}
+          disabled={isSavingReport || !isFormValid() || !!form.id}
+          size="sm"
+          className="w-full"
+        >
+          <Save className="mr-2 h-3.5 w-3.5" />
+          {isSavingReport ? "Saving..." : "Save Report"}
+        </Button>
+        <Button
+          onClick={handleViewReport}
+          variant="outline"
+          size="sm"
+          className="w-full"
+        >
+          <Eye className="mr-2 h-3.5 w-3.5" />
+          View Reports
+        </Button>
+      </div>
+
+      {/* Divider */}
+      <div className="border-t border-gray-100" />
 
       {/* Report Details List */}
-      <div className="mt-6">
-        <ReportDetailList activeConnectionId={Number(form.connectionId)} />
-      </div>
+      <ReportDetailList activeConnectionId={Number(form.connectionId)} />
     </div>
   );
 };

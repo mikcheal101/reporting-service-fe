@@ -12,9 +12,9 @@ const ConnectionLayout: React.FC<{ children: React.ReactNode }> = ({
       <div className="hidden lg:block">
         <AppSidebar />
       </div>
-      <div className="flex-1 flex flex-col bg-gray-100 min-h-screen">
+      <div className="flex-1 flex flex-col min-h-screen">
         {/* Sticky Navbar */}
-        <div className="sticky top-0 z-10 bg-gray-100">
+        <div className="sticky top-0 z-10 bg-white border-b border-sidebar-border">
           <Navbar title="Reports" theme="" />
         </div>
         {/* Children Content */}
