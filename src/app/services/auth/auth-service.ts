@@ -82,6 +82,18 @@ export const assignUserToRoleAsync = async (payload: { userId: number; roleIds: 
   return apiResponse.data;
 };
 
+export const changePasswordAsync = async (
+  id: number,
+  currentPassword: string,
+  newPassword: string,
+): Promise<boolean> => {
+  const apiResponse: AxiosResponse = await api.post(
+    `${buildUrl(process.env.NEXT_PUBLIC_USERS)}/${id}/change-password`,
+    { currentPassword, newPassword },
+  );
+  return apiResponse.data;
+};
+
 export const mapUserToIUser = (user: any): IUser => {
   if (!user) return {} as IUser;
 

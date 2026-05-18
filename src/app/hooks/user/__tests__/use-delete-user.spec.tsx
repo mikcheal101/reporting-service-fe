@@ -43,7 +43,7 @@ describe('useDeleteUser', () => {
     await waitFor(() => {
       expect(toast).toHaveBeenCalledWith({
         title: 'User deleted successfully',
-        description: 'User with ID 1 deleted successfully',
+        description: 'The user account has been permanently removed.',
         variant: 'success',
       });
     });
@@ -59,7 +59,7 @@ describe('useDeleteUser', () => {
     await waitFor(() => {
       expect(toast).toHaveBeenCalledWith({
         title: 'Error deleting user',
-        description: 'Error deleting user',
+        description: 'Failed to remove the user account.',
         variant: 'destructive',
       });
     });

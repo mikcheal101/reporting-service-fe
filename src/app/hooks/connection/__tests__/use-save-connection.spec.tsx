@@ -82,7 +82,7 @@ describe('useSaveConnection', () => {
 
     expect(mockToast).toHaveBeenCalledWith({
       title: 'Error',
-      description: `Failed to save connection: ${errorMessage}`,
+      description: errorMessage,
       variant: 'destructive',
     });
   });

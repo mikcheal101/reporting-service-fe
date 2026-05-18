@@ -28,8 +28,12 @@ import {
   Save,
   Loader2,
   AlertTriangle,
+  Lock,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import useProfile from "@/app/hooks/profile/use-profile";
+import useChangePassword from "@/app/hooks/profile/use-change-password";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -61,6 +65,23 @@ const ProfilePage = () => {
     setShowConfirm,
     user,
   } = useProfile();
+
+  const {
+    currentPassword,
+    setCurrentPassword,
+    newPassword,
+    setNewPassword,
+    showCurrentPassword,
+    setShowCurrentPassword,
+    showNewPassword,
+    setShowNewPassword,
+    isSaving: isPasswordSaving,
+    hasChanges: hasPasswordChanges,
+    requestSave: requestPasswordSave,
+    handleSave: handlePasswordSave,
+    showConfirm: showPasswordConfirm,
+    setShowConfirm: setShowPasswordConfirm,
+  } = useChangePassword();
 
   return (
     <FadeIn delay={100} direction="up">
@@ -175,9 +196,82 @@ const ProfilePage = () => {
             </Button>
           </div>
         </div>
+
+        {/* Change password card */}
+        <div className="bg-card shadow-lg rounded-lg border border-border p-6 lg:p-8">
+          <h2 className="text-lg font-semibold text-foreground mb-6">
+            Change Password
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="currentPassword">Current Password</Label>
+              <div className="relative">
+                <Input
+                  id="currentPassword"
+                  type={showCurrentPassword ? "text" : "password"}
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  placeholder="Current password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  tabIndex={-1}
+                >
+                  {showCurrentPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="newPassword">New Password</Label>
+              <div className="relative">
+                <Input
+                  id="newPassword"
+                  type={showNewPassword ? "text" : "password"}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="New password (min. 8 characters)"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  tabIndex={-1}
+                >
+                  {showNewPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border">
+            <Button
+              onClick={requestPasswordSave}
+              disabled={!hasPasswordChanges || isPasswordSaving}
+              className="gap-2"
+            >
+              {isPasswordSaving ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Lock className="w-4 h-4" />
+              )}
+              {isPasswordSaving ? "Updating..." : "Update Password"}
+            </Button>
+          </div>
+        </div>
       </div>
 
-      {/* Confirmation dialog */}
+      {/* Profile update confirmation dialog */}
       <AlertDialog open={showConfirm} onOpenChange={setShowConfirm}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -196,6 +290,36 @@ const ProfilePage = () => {
             <AlertDialogCancel disabled={isSaving}>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleSave} disabled={isSaving}>
               {isSaving ? "Saving..." : "Yes, Update Profile"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Password change confirmation dialog */}
+      <AlertDialog
+        open={showPasswordConfirm}
+        onOpenChange={setShowPasswordConfirm}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-warning" />
+              Change Password?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Your password will be changed immediately. After updating, you
+              will be signed out and must sign in with your new password.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isPasswordSaving}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handlePasswordSave}
+              disabled={isPasswordSaving}
+            >
+              {isPasswordSaving ? "Updating..." : "Yes, Change Password"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

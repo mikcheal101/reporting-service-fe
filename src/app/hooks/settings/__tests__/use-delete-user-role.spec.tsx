@@ -43,7 +43,7 @@ describe('useDeleteUserRole (settings)', () => {
     await waitFor(() => {
       expect(toast).toHaveBeenCalledWith({
         title: 'User role deleted successfully',
-        description: 'User role with ID 1 deleted successfully',
+        description: 'The role has been removed from the system.',
         variant: 'success',
       });
     });
@@ -59,7 +59,7 @@ describe('useDeleteUserRole (settings)', () => {
     await waitFor(() => {
       expect(toast).toHaveBeenCalledWith({
         title: 'Error deleting user role',
-        description: 'Error deleting user role',
+        description: 'Failed to remove the role.',
         variant: 'destructive',
       });
     });
