@@ -47,7 +47,7 @@ const useSettingsAssignUserRolePage = ({ selectedUser, setAssignRoleSheetOpen }:
         if (roleIds?.length === 0) {
             toast({
                 title: "Error",
-                description: "Please roles to assign",
+                description: "Please select roles to assign",
                 variant: "destructive"
             });
             return;

@@ -1,6 +1,7 @@
 // components/settings/settings-assign-user-role-page.tsx
 "use client";
 
+import { useState } from "react";
 import useSettingsAssignUserRolePage from "@/app/hooks/settings/use-settings-assign-user-role-page";
 import { Button } from "../ui/button";
 import {
@@ -11,6 +12,18 @@ import {
   SheetTitle,
 } from "../ui/sheet";
 import { IUser } from "@/types/auth/iuser";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
+import { Loader2, CheckCircle2 } from "lucide-react";
 
 type SettingsAssignUserRolePageProps = {
   mode: string;
@@ -33,6 +46,14 @@ const SettingsAssignUserRolePage = ({
     resetForm,
     handleAssignRoleSubmit,
   } = useSettingsAssignUserRolePage({ setAssignRoleSheetOpen, selectedUser });
+
+  const [isPending, setIsPending] = useState(false);
+
+  const onConfirm = () => {
+    setIsPending(true);
+    handleAssignRoleSubmit();
+    setIsPending(false);
+  };
 
   return (
     <Sheet open={assignRoleSheetOpen} onOpenChange={setAssignRoleSheetOpen}>
@@ -87,9 +108,32 @@ const SettingsAssignUserRolePage = ({
           >
             Cancel
           </Button>
-          <Button onClick={() => handleAssignRoleSubmit()}>
-            Assign Role
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button type="button" disabled={isPending}>
+                {isPending ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <CheckCircle2 className="w-4 h-4" />
+                )}
+                {isPending ? "Assigning..." : "Assign Role"}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Assign Role?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will assign the selected roles to {selectedUser?.fullName}. Are you sure you want to continue?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={onConfirm}>
+                  Assign
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </SheetFooter>
       </SheetContent>
     </Sheet>

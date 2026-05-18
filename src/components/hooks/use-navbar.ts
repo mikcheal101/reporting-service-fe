@@ -23,6 +23,11 @@ const useNavbar = (props: INavbarProps): INavbar => {
         router.push(FE_ROUTES.HOME);
     }
 
+    const handleProfileClick = () => {
+        setIsDropdownOpen(false);
+        router.push(FE_ROUTES.PROFILE);
+    }
+
     return {
         user,
         themeStyle,
@@ -31,6 +36,7 @@ const useNavbar = (props: INavbarProps): INavbar => {
         handleBackClick,
         toggleDropdown,
         handleSignOut,
+        handleProfileClick,
     }
 };
 

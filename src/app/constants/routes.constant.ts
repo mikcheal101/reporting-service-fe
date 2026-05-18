@@ -1,6 +1,7 @@
 export const FE_ROUTES = {
   SIGNIN: '/signin',
   DASHBOARD: '/dashboard',
+  PROFILE: '/profile',
   SETTINGS: '/settings',
   SETTINGS_SYSTEM: '/settings/system',
   CONNECTION: '/connection',

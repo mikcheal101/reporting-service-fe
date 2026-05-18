@@ -16,7 +16,7 @@ const useDeleteUserRole = () => {
         onSuccess: (deleted: boolean, id: number): void => {
             toast({
                 title: deleted ? "User role deleted successfully" : "Error deleting user role",
-                description: deleted ? "User role deleted successfully" : "Error deleting user role",
+                description: deleted ? "The role has been removed from the system." : "Failed to remove the role.",
                 variant: deleted ? "success" : "destructive",
             });
 

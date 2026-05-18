@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { LogOut, ArrowLeft } from "lucide-react";
+import { LogOut, ArrowLeft, User } from "lucide-react";
 import profile from "../../public/assets/profile.png";
 import { SidebarTrigger } from "./ui/sidebar";
 import { Button } from "./ui/button";
@@ -75,6 +75,15 @@ const Navbar = (props: INavbarProps) => {
                   )}
 
                   <hr className="border-border my-2" />
+
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start gap-2 text-card-foreground hover:text-card-foreground hover:bg-muted/50"
+                    onClick={hook.handleProfileClick}
+                  >
+                    <User className="w-4 h-4" />
+                    Profile
+                  </Button>
 
                   <Button
                     variant="ghost"

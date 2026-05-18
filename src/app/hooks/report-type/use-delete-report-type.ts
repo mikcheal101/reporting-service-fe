@@ -15,6 +15,7 @@ const useDeleteReportType = () => {
     onSuccess: () => {
       toast({
         title: "Report type deleted successfully!",
+        description: "The report type has been removed from the system.",
         variant: "success",
       });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REPORT_TYPES] });

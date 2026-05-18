@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Users, Settings as SettingsIcon } from "lucide-react";
+import { Users, Settings as SettingsIcon, ScrollText } from "lucide-react";
 import useSettings from "@/app/hooks/settings/use-settings";
 
 const Settings = () => {
@@ -20,6 +20,11 @@ const Settings = () => {
             label: "System",
             icon: <SettingsIcon className="h-4 w-4" />,
             path: paths.system,
+          },
+          {
+            label: "Audit Logs",
+            icon: <ScrollText className="h-4 w-4" />,
+            path: paths.auditLogs,
           },
         ].map(({ label, icon, path }) => (
           <button

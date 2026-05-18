@@ -21,4 +21,6 @@ export const TOAST_TITLES = {
   USER_UPDATED_SUCCESSFULLY: 'User updated successfully',
   USER_ROLE_CREATED_SUCCESSFULLY: 'User role created successfully',
   USER_ROLE_UPDATES_SUCCESSFULLY: 'User role updated successfully',
+  PROFILE_UPDATED_SUCCESSFULLY: 'Profile updated successfully',
+  ERROR_UPDATING_PROFILE: 'Error updating profile',
 } as const;

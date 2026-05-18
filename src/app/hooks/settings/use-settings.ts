@@ -8,7 +8,7 @@ const paths = {
     userManagement: FE_ROUTES.SETTINGS,
     //    userPreference: "/settings/user-preference",
     system: FE_ROUTES.SETTINGS_SYSTEM,
-    //  auditLogs: "/settings/audit-logs"
+    auditLogs: "/settings/audit-logs",
 };
 
 const useSettings = () => {

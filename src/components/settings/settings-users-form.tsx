@@ -1,7 +1,7 @@
 // components/settings/settings-users-form.tsx
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -16,7 +16,18 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Plus } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
+import { Loader2, Save, Plus } from "lucide-react";
 
 type SettingsUsersFormProps = {
   mode: string;
@@ -44,6 +55,17 @@ const SettingsUsersForm = ({
     togglePasswordVisibility,
 } = useSettingsUsersForm({ selectedUser, setSelectedUser, setIsSheetOpen });
 
+  const [isPending, setIsPending] = useState(false);
+
+  const onConfirm = () => {
+    setIsPending(true);
+    try {
+      handleSubmit();
+    } finally {
+      setIsPending(false);
+    }
+  };
+
   return (
     <div className="flex justify-between items-center mb-4">
       <h2 className="text-lg font-bold text-gray-800">User Management</h2>
@@ -69,7 +91,7 @@ const SettingsUsersForm = ({
                 : "Edit the user's details below."}
             </SheetDescription>
           </SheetHeader>
-          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-4 mt-4">
             <div className="space-y-2">
               <Label htmlFor="firstName">First Name</Label>
               <Input
@@ -139,7 +161,36 @@ const SettingsUsersForm = ({
               </div>
             )}
             <div className="flex justify-end pt-2">
-              <Button type="submit">Save Changes</Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button type="button" disabled={isPending}>
+                    {isPending ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <Save className="w-4 h-4" />
+                    )}
+                    {isPending ? "Saving..." : "Save Changes"}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      {mode === "add" ? "Create User?" : "Update User?"}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      {mode === "add"
+                        ? "This will create a new user account. The user will receive an email with their login credentials."
+                        : "This will update the user's information. Are you sure you want to continue?"}
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={onConfirm}>
+                      {mode === "add" ? "Create" : "Update"}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </form>
         </SheetContent>

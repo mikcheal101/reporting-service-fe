@@ -113,7 +113,7 @@ const useTableConfigurator = () => {
         !table.tableName.trim() ||
         table.columns.some((c) => !c.name.trim())
       ) {
-        toast({ title: "Please provide valid table names and columns.", variant: "warning" });
+        toast({ title: "Please provide valid table names and columns.", description: "Both table name and column names are required.", variant: "warning" });
         return;
       }
     }

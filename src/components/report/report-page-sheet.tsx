@@ -1,7 +1,6 @@
-// components/report/report-page-sheet.tsx
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -13,7 +12,18 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
+import { Save, Loader2 } from "lucide-react";
 import IReport from "@/types/report/ireport";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../ui/alert-dialog";
 
 type ReportPageSheetProps = {
   isSheetOpen: boolean;
@@ -29,8 +39,28 @@ const ReportPageSheet = ({
   currentReport,
   setCurrentReport,
   handleUpdateReport,
-}: ReportPageSheetProps) => (
-  <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
+}: ReportPageSheetProps) => {
+  const [isPending, setIsPending] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const handleUpdateClick = () => {
+    setShowConfirm(true);
+  };
+
+  const confirmUpdate = async () => {
+    setIsPending(true);
+    try {
+      await handleUpdateReport();
+      setShowConfirm(false);
+      setSheetOpen(false);
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  return (
+    <>
+    <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
     <SheetContent className="w-full sm:max-w-[480px]">
       <SheetHeader>
         <SheetTitle>Edit Report</SheetTitle>
@@ -65,12 +95,32 @@ const ReportPageSheet = ({
         </div>
       </div>
       <SheetFooter className="mt-6">
-        <Button onClick={handleUpdateReport}>
+        <Button onClick={handleUpdateClick} disabled={isPending}>
+          {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Update
         </Button>
       </SheetFooter>
     </SheetContent>
   </Sheet>
-);
+    <AlertDialog open={showConfirm} onOpenChange={setShowConfirm}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Confirm Update</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you sure you want to update this report? Please verify all fields are correct.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={confirmUpdate} disabled={isPending}>
+            {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+            Update
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    </>
+  );
+};
 
 export default ReportPageSheet;

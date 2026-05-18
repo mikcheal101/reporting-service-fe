@@ -8,4 +8,5 @@ export default interface INavbar {
     handleBackClick: () => void;
     toggleDropdown: () => void;
     handleSignOut: () => Promise<void>;
+    handleProfileClick: () => void;
 }

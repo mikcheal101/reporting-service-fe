@@ -16,7 +16,7 @@ const useDeleteUser = () => {
         onSuccess: (deleted: boolean, id: number) => {
             toast({
                 title: deleted ? "User deleted successfully" : "Error deleting user",
-                description: deleted ? "User deleted successfully" : "Error deleting user",
+                description: deleted ? "The user account has been permanently removed." : "Failed to remove the user account.",
                 variant: deleted ? "success" : "destructive",
             });
 
