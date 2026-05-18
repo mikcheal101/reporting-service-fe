@@ -30,12 +30,12 @@ const useAiQuery = ({ report, onQueryGenerated }: UseAiQueryProps) => {
 
     const generateQuery = async () => {
         if (!prompt.trim()) {
-            toast({ title: 'Please enter a query description' });
+            toast({ title: 'Please enter a query description', variant: 'warning' });
             return;
         }
 
         if (!report?.id) {
-            toast({ title: "Missing report context" });
+            toast({ title: "Missing report context", variant: "warning" });
             return;
         }
 
@@ -52,7 +52,7 @@ const useAiQuery = ({ report, onQueryGenerated }: UseAiQueryProps) => {
 
     const copyQuery = async () => {
         if (!generatedQuery.trim()) {
-            toast({ title: 'No query to copy' });
+            toast({ title: 'No query to copy', variant: 'warning' });
             return;
         }
 
@@ -60,20 +60,20 @@ const useAiQuery = ({ report, onQueryGenerated }: UseAiQueryProps) => {
             await navigator.clipboard.writeText(generatedQuery);
             setIsCopied(true);
             setTimeout(() => setIsCopied(false), 2000);
-            toast({ title: 'Query copied to clipboard!' });
+            toast({ title: 'Query copied to clipboard!', variant: 'success' });
         } catch {
-            toast({ title: 'Failed to copy query to clipboard' });
+            toast({ title: 'Failed to copy query to clipboard', variant: 'destructive' });
         }
     };
 
     const useQuery = () => {
         if (!generatedQuery.trim()) {
-            toast({ title: 'No query to apply' });
+            toast({ title: 'No query to apply', variant: 'warning' });
             return;
         }
 
         onQueryGenerated(generatedQuery);
-        toast({ title: 'Query applied to editor!' });
+        toast({ title: 'Query applied to editor!', variant: 'success' });
     };
 
     return {

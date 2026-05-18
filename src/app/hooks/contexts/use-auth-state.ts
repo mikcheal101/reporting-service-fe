@@ -17,6 +17,8 @@ const useAuthState = (): IAuthContextType => {
       setLoading(true);
       const fetchedUser = await authService.meAsync();
       setUser(fetchedUser);
+    } catch {
+      setUser(null);
     } finally {
       setLoading(false);
     }
@@ -39,6 +41,7 @@ const useAuthState = (): IAuthContextType => {
       if (exception instanceof Error) {
         setError(exception?.message);
       }
+      throw exception;
     } finally {
       setLoading(false);
     }

@@ -13,6 +13,9 @@ import {
 } from "../ui/sheet";
 import { IRole } from "@/types/auth/irole";
 import SettingsRolesFormPermissions from "./settings-roles-form-permissions";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Plus } from "lucide-react";
 
 type SettingsRolesFormProps = {
   form: IRole;
@@ -41,16 +44,16 @@ const SettingsRolesForm = ({
 
   return (
     <div className="flex justify-between items-center mb-4">
-      <h2 className="text-lg font-bold text-gray-700">Role Management</h2>
+      <h2 className="text-lg font-bold text-gray-800">Role Management</h2>
       <Sheet open={isRoleFormOpen} onOpenChange={setIsRoleFormOpen}>
-        <SheetTrigger
-          className="bg-[#FFBF48] text-white font-medium px-4 py-2 rounded-lg shadow-md hover:bg-[#ffa726] focus:ring-2 focus:ring-[#FFBF48] focus:ring-offset-2 focus:outline-none transition-all duration-200 ease-in-out active:scale-95"
-          onClick={openForm}
-        >
-          Add Role
+        <SheetTrigger asChild onClick={openForm}>
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            Add Role
+          </Button>
         </SheetTrigger>
 
-        <SheetContent className="w-[400px] sm:w-[540px]">
+        <SheetContent className="w-full sm:max-w-[480px]">
           <SheetHeader>
             <SheetTitle>
               {isNewForm() ? "Add a New User Role" : "Edit User Role"}
@@ -61,32 +64,23 @@ const SettingsRolesForm = ({
                 : "Edit the user role's details below."}
             </SheetDescription>
           </SheetHeader>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Role Name:
-              </label>
-              <input
+          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Role Name</Label>
+              <Input
                 id="name"
                 name="name"
-                type="text"
                 placeholder="Enter Role Name"
                 required
                 value={form.name}
                 onChange={handleInputChange}
-                className="mt-1 block w-full p-2 border-gray-300 shadow-sm sm:text-sm rounded-md border-2"
               />
             </div>
 
             <SettingsRolesFormPermissions form={form} setForm={setForm} />
 
-            <div className="flex justify-end">
-              <Button type="submit" variant="default">
-                {"Save Changes"}
-              </Button>
+            <div className="flex justify-end pt-2">
+              <Button type="submit">Save Changes</Button>
             </div>
           </form>
         </SheetContent>

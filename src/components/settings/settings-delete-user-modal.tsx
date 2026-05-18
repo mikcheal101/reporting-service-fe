@@ -16,20 +16,20 @@ const SettingsDeleteUserModal = ({
     handleDeleteUser,
 }: SettingsDeleteUserModalProps) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-md w-[90%] sm:w-[400px]">
-        <h2 className="text-lg font-medium mb-4">Confirm Deletion</h2>
-        <p className="text-gray-600 mb-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="bg-white rounded-xl shadow-xl w-[90%] sm:w-[400px] p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2">Confirm Deletion</h2>
+        <p className="text-sm text-gray-600 mb-6">
           Are you sure you want to delete this user? This action cannot be
           undone.
         </p>
-        <div className="flex justify-end gap-4">
+        <div className="flex justify-end gap-3">
           <Button variant="secondary" onClick={() => setIsDeleteModalOpen(false)}>
             Cancel
           </Button>
           <Button
             variant="destructive"
-            onClick={(event) => handleDeleteUser(selectedUser!)}
+            onClick={() => handleDeleteUser(selectedUser!)}
           >
             Delete
           </Button>

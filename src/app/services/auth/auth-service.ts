@@ -82,7 +82,7 @@ export const assignUserToRoleAsync = async (payload: { userId: number; roleIds: 
   return apiResponse.data;
 };
 
-const mapUserToIUser = (user: any): IUser => {
+export const mapUserToIUser = (user: any): IUser => {
   if (!user) return {} as IUser;
 
   return {

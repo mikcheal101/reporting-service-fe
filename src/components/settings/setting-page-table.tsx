@@ -26,15 +26,15 @@ const SettingsPageTable = ({
     setViewDetailsSheetOpen,
 }: SettingsPageTableProps) => {
   return (
-    <tr key={user.id} className="border-b hover:bg-gray-50">
-      <td className="px-6 py-3 text-sm text-gray-700">{user.username}</td>
-      <td className="px-6 py-3 text-sm text-gray-700">
+    <tr key={user.id} className="hover:bg-muted/30 transition-colors">
+      <td className="px-4 py-3.5 text-sm text-foreground">{user.username}</td>
+      <td className="px-4 py-3.5 text-sm text-muted-foreground">
         {user.phone || "N/A"}
       </td>
-      <td className="px-6 py-3">
+      <td className="px-4 py-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="h-8">
+            <Button variant="outline" size="sm" className="h-8 text-xs">
               Actions
             </Button>
           </DropdownMenuTrigger>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { FadeIn } from "@/components/ui/fade-in";
 
 import ConnectionFormSheet from "@/components/connection/connection-form-sheet";
 import useConnectionTable from "@/app/hooks/connection/use-connection-table";
@@ -57,32 +58,36 @@ const Connection: React.FC = () => {
 
   return (
     <div className="mt-0 p-0">
-      <div className="flex justify-end mb-2 space-x-4">
-        <ConnectionFormSheet
-          isOpen={connectionState.isOpen}
-          setIsOpen={connectionState.setIsOpen}
-          connection={connectionState.connection}
-          connectionId={connectionState.connectionId}
-          formData={connectionState.form}
-          setFormData={connectionState.setForm}
-          showPassword={connectionState.showPassword}
-          setShowPassword={connectionState.setShowPassword}
-          resetFields={connectionState.resetFields}
-          setConnection={connectionState.setConnection}
-          setConnectionId={connectionState.setConnectionId}
-          handleInputChange={connectionState.handleChange}
-          handleTestConnection={connectionState.handleTestConnection}
-          handleSubmit={connectionState.handleSubmit}
-        />
-      </div>
+      <FadeIn delay={0} direction="up">
+        <div className="flex justify-end mb-2 space-x-4">
+          <ConnectionFormSheet
+            isOpen={connectionState.isOpen}
+            setIsOpen={connectionState.setIsOpen}
+            connection={connectionState.connection}
+            connectionId={connectionState.connectionId}
+            formData={connectionState.form}
+            setFormData={connectionState.setForm}
+            showPassword={connectionState.showPassword}
+            setShowPassword={connectionState.setShowPassword}
+            resetFields={connectionState.resetFields}
+            setConnection={connectionState.setConnection}
+            setConnectionId={connectionState.setConnectionId}
+            handleInputChange={connectionState.handleChange}
+            handleTestConnection={connectionState.handleTestConnection}
+            handleSubmit={connectionState.handleSubmit}
+          />
+        </div>
+      </FadeIn>
 
-      <div className="p-6 bg-[#FAFAFA] shadow-lg rounded-lg border border-gray-200">
-        <ConnectionToolbar
-          viewMode={connectionState.viewMode}
-          setViewMode={connectionState.setViewMode}
-        />
-        {content}
-      </div>
+      <FadeIn delay={100} direction="up">
+        <div className="p-6 bg-card shadow-lg rounded-lg border border-border">
+          <ConnectionToolbar
+            viewMode={connectionState.viewMode}
+            setViewMode={connectionState.setViewMode}
+          />
+          {content}
+        </div>
+      </FadeIn>
     </div>
   );
 };

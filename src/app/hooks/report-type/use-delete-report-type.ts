@@ -5,6 +5,8 @@ import { deleteReportTypeAsync } from "@/app/services/report-type/report-type-se
 import { toast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { TOAST_TITLES } from "../../constants/toast-titles.constant";
+import { QUERY_KEYS } from "../../constants/query-keys.constant";
 
 const useDeleteReportType = () => {
   const queryClient = useQueryClient();
@@ -13,11 +15,12 @@ const useDeleteReportType = () => {
     onSuccess: () => {
       toast({
         title: "Report type deleted successfully!",
+        variant: "success",
       });
-      queryClient.invalidateQueries({ queryKey: ['report-types'] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.REPORT_TYPES] });
     },
     onError: (error: AxiosError<{message: string}>) => {
-      toast({ title: "Failed to delete report type", description: `Error: ${error.response?.data?.message}`});
+      toast({ title: TOAST_TITLES.FAILED_TO_DELETE_REPORT_TYPE, description: error.response?.data?.message || "Something went wrong. Please try again.", variant: "destructive"});
     },
   });
 };

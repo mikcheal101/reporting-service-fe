@@ -6,6 +6,8 @@ import { toast } from "@/hooks/use-toast";
 import { IRole } from "@/types/auth/irole";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { TOAST_TITLES } from "../../constants/toast-titles.constant";
+import { QUERY_KEYS } from "../../constants/query-keys.constant";
 
 const useUpdateUserRole = () => {
     const queryClient = useQueryClient();
@@ -14,15 +16,16 @@ const useUpdateUserRole = () => {
         mutationFn: updateRoleAsync,
         onSuccess: (updatedRole: IRole) => {
             toast({
-                title: "User role updated successfully",
-                description: `User role with ID ${updatedRole.id} updated successfully`,
+                title: TOAST_TITLES.USER_ROLE_UPDATES_SUCCESSFULLY,
+                description: `User role "${updatedRole.name}" updated successfully`,
+                variant: "success",
             });
 
-            queryClient.setQueryData<IRole[]>(["roles"], (roles) => roles?.map((r) => (r.id === updatedRole.id ? updatedRole : r)) || []);
+            queryClient.setQueryData<IRole[]>([QUERY_KEYS.USER_ROLES], (roles) => roles?.map((r) => (r.id === updatedRole.id ? updatedRole : r)) || []);
         },
         onError: (error: AxiosError<{ message: string }>) => {
             toast({
-                title: "Error updating user role",
+                title: TOAST_TITLES.ERROR_UPDATING_USER_ROLE,
                 description: error.response?.data?.message || "Error updating user role",
                 variant: "destructive",
             });

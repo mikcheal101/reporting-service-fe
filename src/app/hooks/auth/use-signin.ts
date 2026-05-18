@@ -6,6 +6,8 @@ import IUseSignInHook from "@/types/auth/iuse-signin.hook";
 import { useAuth } from "./use-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { TOAST_TITLES } from "../../constants/toast-titles.constant";
+import { FE_ROUTES } from "../../constants/routes.constant";
 
 const useSignin = (): IUseSignInHook => {
 
@@ -38,21 +40,20 @@ const useSignin = (): IUseSignInHook => {
             await login(formData.username, formData.password, () => {
                 toast({
                     variant: "default",
-                    title: "Login successful",
+                    title: TOAST_TITLES.LOGIN_SUCCESSFUL,
                     description: "Welcome back!",
                 });
-                router.push('/dashboard');
+                router.push(FE_ROUTES.DASHBOARD);
             });
         } catch (error: unknown) {
-            console.log(error);
-            // console.log(error.response.data)
-            // const message = error.response?.data?.error || "Something went wrong. Please try again.";
-            // setError(message);
-            // toast({
-            //     variant: "destructive",
-            //     title: "Login failed",
-            //     description: message,
-            // }); 
+            const axiosError = error as { response?: { data?: { message?: string } } };
+            const message = axiosError?.response?.data?.message || "Something went wrong. Please try again.";
+            setError(message);
+            toast({
+                variant: "destructive",
+                title: TOAST_TITLES.LOGIN_FAILED,
+                description: message,
+            });
         } finally {
             setIsLoading(false);
         }

@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import { FaPlus } from "react-icons/fa";
+import { Plus } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import useReportTable from "@/app/hooks/report/use-report-table";
@@ -47,17 +47,14 @@ const Report: React.FC = () => {
     <div className="mt-0 p-0">
       <div className="flex justify-end mb-2 space-x-4">
         <Button
-            variant="outline"
-            className="flex items-center px-3 sm:px-5 py-3 sm:py-5 bg-[#EAB308] text-white text-xs sm:text-sm font-medium rounded hover:bg-amber-400 transition"
             onClick={AddReports}
           >
-            <FaPlus className="mr-1 sm:mr-2" />
-            <span className="hidden sm:inline">Add Report</span>
-            <span className="sm:hidden">Add</span>
+            <Plus className="mr-2 h-4 w-4" />
+            Add Report
           </Button>
       </div>
 
-      <div className="p-6 bg-white shadow-lg rounded-lg border border-gray-200">
+      <div className="p-6 bg-card shadow-lg rounded-lg border border-border">
         <ReportPageToolBar viewMode={viewMode} setViewMode={setViewMode} />
         <div>
           <ReportPageSheet

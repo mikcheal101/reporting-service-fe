@@ -1,34 +1,29 @@
 // components/ui/database-dropdown
 "use client";
-import IConnection from "@/types/connection/iconnection";
 import IDataBaseType from "@/types/connection/idatabase-type";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 
 const renderDatabaseTypeDropdown = (
-  formData: IConnection,
-  setFormData: React.Dispatch<React.SetStateAction<IConnection>>
+  databaseType: number,
+  onChange: (value: number) => void,
 ) => (
-  <select
-    name="databaseType"
-    value={formData.databaseType}
-    onChange={(e) =>
-      setFormData((prev) => ({
-        ...prev,
-        databaseType: Number(e.target.value) as IDataBaseType,
-      }))
-    }
-    className="w-full border rounded px-3 py-2"
+  <Select
+    value={String(databaseType)}
+    onValueChange={(value) => onChange(Number(value) as IDataBaseType)}
   >
-    <option value="" disabled>
-      Select Database
-    </option>
-    {Object.entries(IDataBaseType)
-      .filter(([key]) => isNaN(Number(key)))
-      .map(([key, value]) => (
-        <option key={value} value={value}>
-          {key}
-        </option>
-      ))}
-  </select>
+    <SelectTrigger>
+      <SelectValue placeholder="Select Database" />
+    </SelectTrigger>
+    <SelectContent>
+      {Object.entries(IDataBaseType)
+        .filter(([key]) => isNaN(Number(key)))
+        .map(([key, value]) => (
+          <SelectItem key={value} value={String(value)}>
+            {key}
+          </SelectItem>
+        ))}
+    </SelectContent>
+  </Select>
 );
 
 export default renderDatabaseTypeDropdown;

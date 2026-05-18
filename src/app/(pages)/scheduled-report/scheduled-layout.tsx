@@ -1,4 +1,3 @@
-// app/(pages)/scheduled-report/scheduled-layout.tsx
 "use client";
 import React from "react";
 import AppSidebar from "@/components/app-sidebar";
@@ -7,22 +6,16 @@ import Navbar from "@/components/navbar";
 const ScheduledLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-
   return (
     <div className="flex w-full min-h-screen flex-col lg:flex-row">
-      {/* Sidebar - hidden on mobile, shown on desktop */}
       <div className="hidden lg:block">
         <AppSidebar />
       </div>
-      <div className="flex-1 flex flex-col bg-gray-100 min-h-screen">
-        {/* Sticky Navbar */}
-        <div className="sticky top-0 z-10 bg-gray-100">
+      <div className="flex-1 flex flex-col min-h-screen">
+        <div className="sticky top-0 z-10 bg-white border-b border-sidebar-border">
           <Navbar title="Scheduled Reports" theme="" />
         </div>
-        {/* Children Content */}
-        <div className="flex-1 overflow-y-auto p-2 sm:p-4 lg:p-6">
-          {children}
-        </div>
+        <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
     </div>
   );

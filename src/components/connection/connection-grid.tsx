@@ -3,7 +3,8 @@
 
 import ConnectionGridProps from "@/types/components/connection/connection-grid";
 import IConnection from "@/types/connection/iconnection";
-import { PlugZap, XCircle } from "lucide-react";
+import { PlugZap, XCircle, Pencil, Trash2 } from "lucide-react";
+import { Button } from "../ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -48,33 +49,27 @@ const ConnectionGrid = (properties: ConnectionGridProps) => (
             Database: {properties.MapToDatabaseType(connection.databaseType)}
           </p>
           <div className="mt-4 flex justify-end space-x-2">
-            <button
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => {
                 properties.setIsOpen(true);
-                properties.handleEditConnection(connection); // Handle the editing logic
+                properties.handleEditConnection(connection);
               }}
-              className={`px-3 py-2 rounded text-xs font-medium transition
-              ${
-                isTested
-                  ? "border-2 border-green-500 bg-green-50"
-                  : "border-2 border-red-500 text-gray-500"
-              }`}
             >
+              <Pencil className="mr-1 h-3 w-3" />
               Edit
-            </button>
+            </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <button
+                <Button
+                  variant="destructive"
+                  size="sm"
                   onClick={() => properties.setDeleteId(connection.id)}
-                  className={`px-3 py-2 rounded text-xs font-medium text-white transition
-                  ${
-                    isTested
-                      ? "border-2 border-green-500 bg-green-500"
-                      : "border-2 border-red-500 bg-red-500 text-gray-500"
-                  }`}
                 >
+                  <Trash2 className="mr-1 h-3 w-3" />
                   Delete
-                </button>
+                </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>

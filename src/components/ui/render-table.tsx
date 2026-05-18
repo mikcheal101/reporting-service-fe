@@ -1,13 +1,11 @@
-// app/utils/render-table.tsx
 "use client";
 import React, { JSX } from "react";
 
 const renderTable = <T,>(data: T[], headers: string[], renderRow: (item: T) => JSX.Element): JSX.Element => {
-  // Safety check: ensure data is an array
   if (!data || data.length === 0) {
     return (
       <div className="overflow-x-auto">
-        <div className="text-center py-4 text-gray-500">
+        <div className="text-center py-4 text-muted-foreground text-sm">
           No data available
         </div>
       </div>
@@ -15,19 +13,21 @@ const renderTable = <T,>(data: T[], headers: string[], renderRow: (item: T) => J
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            {headers.map((header) => (
-              <th key={header} scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">{data.map(renderRow)}</tbody>
-      </table>
+    <div className="rounded-lg border border-border bg-card overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border bg-muted/50">
+              {headers.map((header, i) => (
+                <th key={i} scope="col" className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">{data.map(renderRow)}</tbody>
+        </table>
+      </div>
     </div>
   );
 };

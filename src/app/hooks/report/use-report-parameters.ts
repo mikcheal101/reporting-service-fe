@@ -4,9 +4,10 @@
 import { fetchReportParametersAsync } from "@/app/services/report/report-service";
 import IQueryParameter from "@/types/report/iquery-parameter";
 import { useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../constants/query-keys.constant";
 
 const useReportParameters = (id: number) => (useQuery<IQueryParameter[], Error>({
-    queryKey: ["report-parameters"],
+    queryKey: [QUERY_KEYS.REPORT_PARAMETERS, id],
     queryFn: () => fetchReportParametersAsync(id!),
     enabled: !!id,
     retry: 2

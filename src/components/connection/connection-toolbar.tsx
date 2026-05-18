@@ -2,34 +2,29 @@
 "use client";
 
 import ConnectionToolBarProps from "@/types/components/connection/connection-toolbar";
-import { FaList, FaThLarge } from "react-icons/fa";
+import { List, LayoutGrid } from "lucide-react";
+import { Button } from "../ui/button";
 
 const ConnectionToolbar = ({ setViewMode, viewMode}: ConnectionToolBarProps) => (
   <div className="flex items-center">
     <h2 className="text-2xl font-bold text-gray-700 mb-6"> Connections </h2>
-    <div className="flex justify-end ml-auto space-x-3 p-2 ">
-      <button
+    <div className="flex justify-end ml-auto space-x-2">
+      <Button
+        variant={viewMode === "list" ? "default" : "secondary"}
+        size="sm"
         onClick={() => setViewMode("list")}
-        className={`p-2 rounded flex gap-2 items-center ${
-          viewMode === "list"
-            ? "bg-[#EAB308] text-white"
-            : "bg-gray-200 text-gray-700"
-        }`}
       >
-        <FaList className="text-lg" />
+        <List className="mr-1 h-4 w-4" />
         List
-      </button>
-      <button
+      </Button>
+      <Button
+        variant={viewMode === "grid" ? "default" : "secondary"}
+        size="sm"
         onClick={() => setViewMode("grid")}
-        className={`p-2 rounded flex gap-2 items-center ${
-          viewMode === "grid"
-            ? "bg-[#EAB308] text-white"
-            : "bg-gray-200 text-gray-700"
-        }`}
       >
-        <FaThLarge className="text-lg" />
+        <LayoutGrid className="mr-1 h-4 w-4" />
         Grid
-      </button>
+      </Button>
     </div>
   </div>
 );

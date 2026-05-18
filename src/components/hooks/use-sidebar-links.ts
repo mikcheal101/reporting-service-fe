@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/app/hooks/auth/use-auth";
 import ILink from "@/types/components/sidebar/ilink";
 import useSidebarState from "@/app/hooks/contexts/use-sidebar-state";
+import { FE_ROUTES } from "@/app/constants/routes.constant";
 
 const useSideBarLinks = () => {
   const router = useRouter();
@@ -12,7 +13,7 @@ const useSideBarLinks = () => {
   const pathname = usePathname();
   const [activeLink, setActiveLink] = useState<string>("");
 
-  const handleLogout = async () => await logout(() => router.replace('/'));
+  const handleLogout = async () => await logout(() => router.replace(FE_ROUTES.HOME));
 
   const isActive = (link: ILink): boolean => pathname === link.href;
 

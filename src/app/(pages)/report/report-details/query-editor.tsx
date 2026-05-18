@@ -78,7 +78,6 @@ const QueryEditor: React.FC<QueryEditorProps> = ({
               addManualParameter={addManualParameter}
               updateManualParameter={updateManualParameter}
               getAllParameters={getAllParameters}
-              parameters={parameters}
               removeManualParameter={removeManualParameter}
               sqlToJsTypeMap={sqlToJsTypeMap}
               parameterValues={parameterValues}

@@ -10,7 +10,7 @@ import { AxiosError } from "axios";
 const useGenerateAiQuery = () => (useMutation<string, AxiosError, IGenerateAiQuery>({
     mutationFn: generateAiQueryAsync,
     onSuccess: () => {
-        toast({ title: 'Query generated successfully!' });
+        toast({ title: 'Query generated successfully!', variant: 'success' });
     },
     onError: (error) => {
         toast({

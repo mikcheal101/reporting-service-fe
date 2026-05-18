@@ -16,19 +16,26 @@ const SidebarLinks = ({ isBottom = false }: { isBottom?: boolean }) => {
         return (
           <SidebarMenuItem
             key={link.href}
-            className={`flex p-2 sm:p-4 flex-col hover:bg-[#FFFCF4] rounded-lg transition-colors duration-150 ${
-              isLinkActive ? "bg-[#FFF7E8]" : ""
+            className={`relative flex rounded-lg transition-all duration-200 ${
+              isLinkActive
+                ? "bg-sidebar-primary shadow-sm"
+                : "hover:bg-sidebar-accent"
             }`}
           >
+            {isLinkActive && (
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-sidebar-primary-foreground/70 rounded-full animate-in fade-in slide-in-from-left-1 duration-300" />
+            )}
             <SidebarMenuButton
               onClick={() => hook.handleLinkClick(link)}
-              className={`flex items-center hover:bg-[#FFFCF4] justify-between focus:ring-2 focus:ring-yellow-500 w-full text-sm font-medium ${
-                isLinkActive ? "bg-[#FFF7E8]" : ""
+              className={`flex items-center w-full text-sm font-medium transition-all duration-200 px-3 py-2.5 ${
+                isLinkActive
+                  ? "text-sidebar-primary-foreground"
+                  : "text-sidebar-foreground/80 hover:text-sidebar-foreground"
               }`}
               aria-current={isLinkActive ? "page" : undefined}
             >
-              <div className="flex items-center gap-2 sm:gap-4">
-                <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5">
+              <div className={`flex items-center gap-3 transition-all duration-200 ${isLinkActive ? "translate-x-0.5" : ""}`}>
+                <div className="flex-shrink-0 w-5 h-5">
                   {link.icon}
                 </div>
                 {!hook.isCollapsed && <span className="truncate">{link.label}</span>}

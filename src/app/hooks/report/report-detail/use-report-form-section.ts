@@ -7,6 +7,7 @@ import useReportType from "../../report-type/use-report-type";
 import { useRouter } from "next/navigation";
 import IReport from "@/types/report/ireport";
 import useSaveReport from "../use-save-report";
+import { FE_ROUTES } from "../../../constants/routes.constant";
 
 type UseReportFormSectionProps = {
     form: IReport;
@@ -65,7 +66,7 @@ const useReportFormSection = ({ form, setForm }: UseReportFormSectionProps) => {
         );
     };
 
-    const handleViewReport = async () => router.push("/report");
+    const handleViewReport = async () => router.push(FE_ROUTES.REPORT);
 
     return {
         form,

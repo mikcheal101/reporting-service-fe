@@ -1,8 +1,6 @@
-// components/report/query-editor/query-editor-locked-state.tsx
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Lock } from "lucide-react";
+import { Lock, Lightbulb } from "lucide-react";
 
 type QueryEditorLockedStateProps = {
   title: string;
@@ -13,29 +11,19 @@ const QueryEditorLockedState = ({
   title,
   description,
 }: QueryEditorLockedStateProps) => (
-  <Card className="w-full">
-    <CardHeader>
-      <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
-        <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
-        {title}
-      </CardTitle>
-    </CardHeader>
-    <CardContent>
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <Lock className="w-16 h-16 text-gray-300 mb-4" />
-        <h3 className="text-lg font-semibold text-gray-600 mb-2">
-          Editor Locked
-        </h3>
-        <p className="text-sm text-gray-500 mb-4 max-w-md">{description}</p>
-        <div className="bg-blue-50 border border-blue-200 rounded-md p-3">
-          <p className="text-sm text-blue-700">
-            💡 <strong>Tip:</strong> Complete the report form in the sidebar to
-            unlock this editor.
-          </p>
-        </div>
-      </div>
-    </CardContent>
-  </Card>
+  <div className="flex flex-col items-center justify-center py-16 text-center">
+    <div className="rounded-full bg-gray-100 p-4 mb-4">
+      <Lock className="h-8 w-8 text-gray-400" />
+    </div>
+    <h3 className="text-base font-semibold text-gray-700 mb-1.5">{title}</h3>
+    <p className="text-sm text-gray-500 mb-6 max-w-md">{description}</p>
+    <div className="flex items-start gap-2 rounded-lg border border-blue-200 bg-blue-50/50 p-3 max-w-sm text-left">
+      <Lightbulb className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+      <p className="text-xs text-blue-700">
+        Complete the report form in the sidebar to unlock this editor.
+      </p>
+    </div>
+  </div>
 );
 
 export default QueryEditorLockedState;

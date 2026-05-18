@@ -4,6 +4,7 @@
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/auth/use-auth";
 import { useEffect } from "react";
+import { FE_ROUTES } from "../constants/routes.constant";
 
 type PagesLayoutProps = {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ const PagesLayout = ({ children }: PagesLayoutProps) => {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.replace("/signin");
+      router.replace(FE_ROUTES.SIGNIN);
     }
   }, [user, loading, router]);
 

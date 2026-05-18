@@ -6,9 +6,13 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
 } from "../ui/sheet";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 import IReport from "@/types/report/ireport";
 
 type ReportPageSheetProps = {
@@ -27,50 +31,44 @@ const ReportPageSheet = ({
   handleUpdateReport,
 }: ReportPageSheetProps) => (
   <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-    <SheetContent className="w-[30%]">
+    <SheetContent className="w-full sm:max-w-[480px]">
       <SheetHeader>
         <SheetTitle>Edit Report</SheetTitle>
         <SheetDescription>
           Update the details of the report below.
         </SheetDescription>
       </SheetHeader>
-      <div className="mt-4">
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Name
-        </label>
-        <input
-          type="text"
-          className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
-          value={currentReport?.name || ""}
-          onChange={(e) =>
-            setCurrentReport((prev) =>
-              prev ? { ...prev, name: e.target.value } : prev
-            )
-          }
-        />
+      <div className="mt-4 space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="edit-name">Name</Label>
+          <Input
+            id="edit-name"
+            value={currentReport?.name || ""}
+            onChange={(e) =>
+              setCurrentReport((prev) =>
+                prev ? { ...prev, name: e.target.value } : prev
+              )
+            }
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="edit-description">Description</Label>
+          <textarea
+            className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+            value={currentReport?.description || ""}
+            onChange={(e) =>
+              setCurrentReport((prev) =>
+                prev ? { ...prev, description: e.target.value } : prev
+              )
+            }
+          />
+        </div>
       </div>
-      <div className="mt-4">
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Description
-        </label>
-        <textarea
-          className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
-          value={currentReport?.description || ""}
-          onChange={(e) =>
-            setCurrentReport((prev) =>
-              prev ? { ...prev, description: e.target.value } : prev
-            )
-          }
-        />
-      </div>
-      <div className="mt-6 flex justify-end">
-        <button
-          onClick={handleUpdateReport}
-          className="px-4 py-2 text-sm font-medium text-white bg-[#EAB308] rounded hover:bg-amber-400"
-        >
+      <SheetFooter className="mt-6">
+        <Button onClick={handleUpdateReport}>
           Update
-        </button>
-      </div>
+        </Button>
+      </SheetFooter>
     </SheetContent>
   </Sheet>
 );
