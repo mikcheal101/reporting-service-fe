@@ -6,8 +6,11 @@ import { FE_ROUTES } from "../../constants/routes.constant";
 
 const paths = {
     userManagement: FE_ROUTES.SETTINGS,
-    //    userPreference: "/settings/user-preference",
+    userPreference: FE_ROUTES.SETTINGS_USER_PREFERENCE,
     system: FE_ROUTES.SETTINGS_SYSTEM,
+    security: FE_ROUTES.SETTINGS_SECURITY,
+    notification: FE_ROUTES.SETTINGS_NOTIFICATION,
+    integration: FE_ROUTES.SETTINGS_INTEGRATION,
     auditLogs: "/settings/audit-logs",
 };
 

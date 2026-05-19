@@ -6,6 +6,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { ReportProvider } from "@/context/ReportContext";
 import { ReportProviderParameter } from "@/context/ParameterContext";
 import QueryProvider from "@/providers/QueryProvider";
+import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "./context/auth.provider";
 import { useEffect } from "react";
@@ -43,22 +44,24 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <QueryProvider>
-          <AuthProvider>
-            <SidebarProvider>
-              <SidebarContextProvider>
-                <ReportProvider>
-                  <ReportProviderParameter>
-                    <div className="flex-1">
-                      {children}
-                    </div>
-                    <Toaster />
-                  </ReportProviderParameter>
-                </ReportProvider>
-              </SidebarContextProvider>
-            </SidebarProvider>
-          </AuthProvider>
-        </QueryProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <QueryProvider>
+            <AuthProvider>
+              <SidebarProvider>
+                <SidebarContextProvider>
+                  <ReportProvider>
+                    <ReportProviderParameter>
+                      <div className="flex-1">
+                        {children}
+                      </div>
+                      <Toaster />
+                    </ReportProviderParameter>
+                  </ReportProvider>
+                </SidebarContextProvider>
+              </SidebarProvider>
+            </AuthProvider>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

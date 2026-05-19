@@ -2,6 +2,7 @@ import React from "react";
 
 import AppSidebar from "@/components/app-sidebar";
 import Navbar from "@/components/navbar";
+import SettingsTabs from "./Settings";
 
 const SettingsLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -15,6 +16,7 @@ const SettingsLayout: React.FC<{ children: React.ReactNode }> = ({
         <div className="sticky top-0 z-10 bg-white border-b border-sidebar-border">
           <Navbar title="Settings" theme="" />
         </div>
+        <SettingsTabs />
         <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
     </div>

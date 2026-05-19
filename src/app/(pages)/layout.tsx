@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/auth/use-auth";
 import { useEffect } from "react";
 import { FE_ROUTES } from "../constants/routes.constant";
+import ErrorBoundary from "@/components/ui/error-boundary";
 
 type PagesLayoutProps = {
   children: React.ReactNode;
@@ -22,7 +23,7 @@ const PagesLayout = ({ children }: PagesLayoutProps) => {
 
   if (loading && !user) return null;
 
-  return <>{children}</>;
+  return <ErrorBoundary>{children}</ErrorBoundary>;
 };
 
 export default PagesLayout;

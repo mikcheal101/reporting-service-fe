@@ -14,7 +14,7 @@
  */
 "use client";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 import { FadeIn } from "@/components/ui/fade-in";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,9 +31,12 @@ import {
   Lock,
   Eye,
   EyeOff,
+  Camera,
 } from "lucide-react";
 import useProfile from "@/app/hooks/profile/use-profile";
 import useChangePassword from "@/app/hooks/profile/use-change-password";
+import { toast } from "@/hooks/use-toast";
+import { TOAST_TITLES } from "@/app/constants/toast-titles.constant";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -46,6 +49,10 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const ProfilePage = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+
   const {
     firstName,
     setFirstName,
@@ -65,6 +72,40 @@ const ProfilePage = () => {
     setShowConfirm,
     user,
   } = useProfile();
+
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast({
+        title: "File too large",
+        description: "Avatar must be under 2MB",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setAvatarPreview(ev.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    setIsUploadingAvatar(true);
+    setTimeout(() => {
+      setIsUploadingAvatar(false);
+      toast({
+        title: TOAST_TITLES.SUCCESS,
+        description: "Avatar updated. Backend upload endpoint integration pending.",
+        variant: "success",
+      });
+    }, 1000);
+  };
 
   const {
     currentPassword,
@@ -89,8 +130,36 @@ const ProfilePage = () => {
         {/* Profile header card — read-only summary */}
         <div className="bg-card shadow-lg rounded-lg border border-border p-6 lg:p-8">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-              <User className="w-8 h-8 text-primary" />
+            <div
+              className="relative w-16 h-16 group cursor-pointer"
+              onClick={handleAvatarClick}
+            >
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+                {avatarPreview ? (
+                  <img
+                    src={avatarPreview}
+                    alt="Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <User className="w-8 h-8 text-primary" />
+                )}
+              </div>
+              <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <Camera className="w-5 h-5 text-white" />
+              </div>
+              {isUploadingAvatar && (
+                <div className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center">
+                  <Loader2 className="w-5 h-5 text-white animate-spin" />
+                </div>
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleAvatarChange}
+              />
             </div>
             <div>
               <h1 className="text-xl font-bold text-foreground">

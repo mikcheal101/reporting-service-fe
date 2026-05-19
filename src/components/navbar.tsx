@@ -6,6 +6,7 @@ import profile from "../../public/assets/profile.png";
 import { SidebarTrigger } from "./ui/sidebar";
 import { Button } from "./ui/button";
 import NotificationIcon from "./NotificationIcon";
+import ThemeToggle from "./theme-toggle";
 import INavbarProps from "@/types/components/navbar/inavbar-props";
 import useNavbar from "./hooks/use-navbar";
 
@@ -31,6 +32,7 @@ const Navbar = (props: INavbarProps) => {
         </div>
       </div>
       <div className="flex items-center space-x-2 sm:space-x-4 ml-auto">
+        <ThemeToggle />
         <NotificationIcon />
         <div className="flex items-center gap-4">
           <div className="relative inline-block text-left">
