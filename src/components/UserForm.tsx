@@ -248,12 +248,12 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <div className="bg-white dark:bg-card rounded-xl shadow-sm border border-gray-100 dark:border-border p-6">
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
           {user ? 'Edit User' : 'Add New User'}
         </h2>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           {user ? 'Update user information and permissions' : 'Create a new user account for this tenant'}
         </p>
       </div>
@@ -264,7 +264,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
           <div className="flex-shrink-0">
             {avatarPreview ? (
               <img 
-                className="h-20 w-20 rounded-full object-cover border-4 border-gray-100" 
+                className="h-20 w-20 rounded-full object-cover border-4 border-gray-100 dark:border-border" 
                 src={avatarPreview} 
                 alt="Avatar preview"
                 onError={() => setAvatarPreview('')}
@@ -278,20 +278,20 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
             )}
           </div>
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Avatar URL (Optional)
             </label>
             <div className="relative">
-              <Upload className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Upload className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
               <input
                 type="url"
                 value={formData.avatarUrl}
                 onChange={(e) => handleInputChange('avatarUrl', e.target.value)}
                 placeholder="https://example.com/avatar.jpg"
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               Enter a URL to an image for the user's avatar
             </p>
           </div>
@@ -300,11 +300,11 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
         {/* Personal Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               First Name *
             </label>
             <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
               <input
                 type="text"
                 value={formData.firstName}
@@ -315,7 +315,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
                     ? 'border-red-300 focus:ring-red-500' 
                     : getFieldStatus('firstName') === 'success'
                     ? 'border-green-300 focus:ring-green-500'
-                    : 'border-gray-200 focus:ring-orange-500'
+                    : 'border-gray-200 dark:border-border focus:ring-orange-500'
                 }`}
                 placeholder="Enter first name"
               />
@@ -335,11 +335,11 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Last Name *
             </label>
             <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
               <input
                 type="text"
                 value={formData.lastName}
@@ -350,7 +350,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
                     ? 'border-red-300 focus:ring-red-500' 
                     : getFieldStatus('lastName') === 'success'
                     ? 'border-green-300 focus:ring-green-500'
-                    : 'border-gray-200 focus:ring-orange-500'
+                    : 'border-gray-200 dark:border-border focus:ring-orange-500'
                 }`}
                 placeholder="Enter last name"
               />
@@ -373,11 +373,11 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
         {/* Contact Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email Address *
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
               <input
                 type="email"
                 value={formData.email}
@@ -388,7 +388,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
                     ? 'border-red-300 focus:ring-red-500' 
                     : getFieldStatus('email') === 'success'
                     ? 'border-green-300 focus:ring-green-500'
-                    : 'border-gray-200 focus:ring-orange-500'
+                    : 'border-gray-200 dark:border-border focus:ring-orange-500'
                 }`}
                 placeholder="user@example.com"
               />
@@ -408,11 +408,11 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Phone Number
             </label>
             <div className="relative">
-              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
               <input
                 type="tel"
                 value={formData.phoneNumber}
@@ -423,7 +423,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
                     ? 'border-red-300 focus:ring-red-500' 
                     : getFieldStatus('phoneNumber') === 'success'
                     ? 'border-green-300 focus:ring-green-500'
-                    : 'border-gray-200 focus:ring-orange-500'
+                    : 'border-gray-200 dark:border-border focus:ring-orange-500'
                 }`}
                 placeholder="+1 (555) 123-4567"
               />
@@ -446,7 +446,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
         {/* Role and Department */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Role *
             </label>
             <div className="relative">
@@ -456,7 +456,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
               <select
                 value={formData.role}
                 onChange={(e) => handleInputChange('role', e.target.value as UserRole)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white dark:bg-card"
               >
                 <option value={UserRole.ADMIN}>Admin - Full system access</option>
                 <option value={UserRole.MANAGER}>Manager - Team management</option>
@@ -467,11 +467,11 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Department
             </label>
             <div className="relative">
-              <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
               <input
                 type="text"
                 value={formData.department}
@@ -482,7 +482,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
                     ? 'border-red-300 focus:ring-red-500' 
                     : getFieldStatus('department') === 'success'
                     ? 'border-green-300 focus:ring-green-500'
-                    : 'border-gray-200 focus:ring-orange-500'
+                    : 'border-gray-200 dark:border-border focus:ring-orange-500'
                 }`}
                 placeholder="Engineering, Marketing, Sales..."
               />
@@ -504,11 +504,11 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
 
         {/* Job Title */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Job Title
           </label>
           <div className="relative">
-            <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
               value={formData.jobTitle}
@@ -519,7 +519,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
                   ? 'border-red-300 focus:ring-red-500' 
                   : getFieldStatus('jobTitle') === 'success'
                   ? 'border-green-300 focus:ring-green-500'
-                  : 'border-gray-200 focus:ring-orange-500'
+                  : 'border-gray-200 dark:border-border focus:ring-orange-500'
               }`}
               placeholder="Senior Developer, Product Manager..."
             />
@@ -539,7 +539,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
         </div>
 
         {/* Active Status Toggle */}
-        <div className="bg-gray-50 rounded-lg p-4">
+        <div className="bg-gray-50 dark:bg-muted/50 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className={`p-2 rounded-lg ${
@@ -552,10 +552,10 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
                 )}
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-900">
+                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                   Account Status
                 </h3>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {formData.isActive 
                     ? 'User can access the system and perform actions' 
                     : 'User account is disabled and cannot access the system'
@@ -571,7 +571,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
               }`}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-card transition-transform ${
                   formData.isActive ? 'translate-x-6' : 'translate-x-1'
                 }`}
               />
@@ -580,7 +580,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
         </div>
 
         {/* Form Actions */}
-        <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-100">
+        <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-100 dark:border-border">
           <button
             type="submit"
             disabled={loading}
@@ -601,7 +601,7 @@ export default function UserForm({ user, tenantId, onSave, onCancel }: UserFormP
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 sm:flex-none bg-white text-gray-700 py-3 px-6 rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2"
+            className="flex-1 sm:flex-none bg-white dark:bg-card text-gray-700 dark:text-gray-300 py-3 px-6 rounded-lg border border-gray-300 dark:border-border hover:bg-gray-50 dark:hover:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2"
           >
             <X className="h-4 w-4" />
             <span>Cancel</span>

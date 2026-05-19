@@ -23,13 +23,13 @@ const Card: React.FC<CardProps> = ({ title, value, date, change }) => {
     const [firstWord, ...restOfTitle] = title.split(" ");
 
     return (
-        <div className="p-3 sm:p-4 bg-white rounded shadow-sm text-xs sm:text-[13px] font-light">
+        <div className="p-3 sm:p-4 bg-white dark:bg-card rounded shadow-sm text-xs sm:text-[13px] font-light">
             <div className="flex justify-between items-center flex-wrap gap-2">
                 <span className="whitespace-pre-wrap text-xs sm:text-sm flex-1 min-w-0">
                     {firstWord} <br /> {restOfTitle.join(" ")}
                 </span>
                 <Select defaultValue={date}>
-                    <SelectTrigger className="font-bold border rounded p-[0.25rem] w-20 sm:w-24 h-7 sm:h-8 text-xs border-[#FFD280] text-[#FFD280] bg-white focus:outline-none flex-shrink-0">
+                    <SelectTrigger className="font-bold border rounded p-[0.25rem] w-20 sm:w-24 h-7 sm:h-8 text-xs border-[#FFD280] text-[#FFD280] bg-white dark:bg-card focus:outline-none flex-shrink-0">
                         <SelectValue placeholder="Select Date Range" />
                     </SelectTrigger>
                     <SelectContent>

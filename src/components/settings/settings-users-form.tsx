@@ -68,7 +68,7 @@ const SettingsUsersForm = ({
 
   return (
     <div className="flex justify-between items-center mb-4">
-      <h2 className="text-lg font-bold text-gray-800">User Management</h2>
+      <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200">User Management</h2>
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger asChild onClick={() => {
             setMode("add");

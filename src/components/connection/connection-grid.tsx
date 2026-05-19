@@ -30,7 +30,7 @@ const ConnectionGrid = (properties: ConnectionGridProps) => (
           className={`relative p-6 rounded-2xl ${
             isTested
               ? "border-2 border-green-500 bg-green-50"
-              : "border-2 border-red-500 text-gray-500"
+              : "border-2 border-red-500 text-gray-500 dark:text-gray-400"
           }`}
         >
           {/* Success or Failure Icon */}
@@ -41,11 +41,11 @@ const ConnectionGrid = (properties: ConnectionGridProps) => (
               <XCircle size={28} className="text-red-500" />
             )}
           </div>
-          <h3 className="text-lg font-bold mb-2 text-gray-700">
+          <h3 className="text-lg font-bold mb-2 text-gray-700 dark:text-gray-300">
             {connection.name}
           </h3>
-          <p className="text-gray-500">Server: {connection.server}</p>
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">Server: {connection.server}</p>
+          <p className="text-gray-500 dark:text-gray-400">
             Database: {properties.MapToDatabaseType(connection.databaseType)}
           </p>
           <div className="mt-4 flex justify-end space-x-2">

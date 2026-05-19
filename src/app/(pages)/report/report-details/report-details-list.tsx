@@ -23,9 +23,9 @@ const ReportDetailList: React.FC<ReportDetailListProps> = ({
   if (!activeConnectionId) {
     return (
       <div className="flex flex-col items-center justify-center text-center py-8">
-        <Plug className="h-8 w-8 text-gray-300 mb-2" />
-        <p className="text-sm font-medium text-gray-500">No Connection Selected</p>
-        <p className="text-xs text-gray-400 mt-1 max-w-[180px]">
+        <Plug className="h-8 w-8 text-gray-300 dark:text-gray-600 mb-2" />
+        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">No Connection Selected</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1 max-w-[180px]">
           Connect to a data source to browse available tables.
         </p>
       </div>
@@ -36,7 +36,7 @@ const ReportDetailList: React.FC<ReportDetailListProps> = ({
     return (
       <div className="space-y-2">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-8 bg-gray-100 rounded animate-pulse" />
+          <div key={i} className="h-8 bg-gray-100 dark:bg-muted rounded animate-pulse" />
         ))}
       </div>
     );
@@ -53,20 +53,20 @@ const ReportDetailList: React.FC<ReportDetailListProps> = ({
   return (
     <div>
       <div className="flex items-center gap-2 mb-3">
-        <Database className="h-3.5 w-3.5 text-gray-400" />
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Tables</h3>
+        <Database className="h-3.5 w-3.5 text-gray-400 dark:text-gray-500" />
+        <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tables</h3>
       </div>
       <div className="space-y-0.5 max-h-[280px] overflow-y-auto">
         {tableData.map((table, index) => (
           <div key={index}>
             <button
               onClick={() => toggleTable(table.tableName)}
-              className="flex items-center gap-2 w-full px-2 py-1.5 text-left text-sm text-gray-700 rounded-md hover:bg-gray-100 transition-colors"
+              className="flex items-center gap-2 w-full px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-100 dark:hover:bg-accent transition-colors"
             >
               {expandedTables[table.tableName] ? (
-                <ChevronDown className="h-3.5 w-3.5 text-gray-400 shrink-0" />
+                <ChevronDown className="h-3.5 w-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
               ) : (
-                <ChevronRight className="h-3.5 w-3.5 text-gray-400 shrink-0" />
+                <ChevronRight className="h-3.5 w-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
               )}
               {expandedTables[table.tableName] ? (
                 <FolderOpen className="h-3.5 w-3.5 text-primary shrink-0" />
@@ -84,11 +84,11 @@ const ReportDetailList: React.FC<ReportDetailListProps> = ({
                     onDragStart={(e) =>
                       handleDragStart(e, table.tableName, column.columnName)
                     }
-                    className="flex items-center gap-2 px-2 py-1 rounded-md cursor-grab hover:bg-gray-50 transition-colors text-xs"
+                    className="flex items-center gap-2 px-2 py-1 rounded-md cursor-grab hover:bg-gray-50 dark:hover:bg-accent/50 transition-colors text-xs"
                   >
-                    <FileType className="h-3 w-3 text-gray-400 shrink-0" />
-                    <span className="text-gray-600 truncate">{column.columnName}</span>
-                    <span className="text-gray-400 text-[10px] ml-auto hidden 2xl:inline">
+                    <FileType className="h-3 w-3 text-gray-400 dark:text-gray-500 shrink-0" />
+                    <span className="text-gray-600 dark:text-gray-400 truncate">{column.columnName}</span>
+                    <span className="text-gray-400 dark:text-gray-500 text-[10px] ml-auto hidden 2xl:inline">
                       {column.dataType}
                     </span>
                   </div>

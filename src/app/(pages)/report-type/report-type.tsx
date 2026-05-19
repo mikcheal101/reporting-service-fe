@@ -43,7 +43,7 @@ const ReportType: React.FC = () => {
       </FadeIn>
       <FadeIn delay={100} direction="up">
         <div className="p-6 bg-card shadow-lg rounded-lg border border-border">
-          <h2 className="text-2xl font-bold text-gray-700 mb-6">Report Types</h2>
+          <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-6">Report Types</h2>
 
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

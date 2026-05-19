@@ -56,7 +56,7 @@ const QueryEditorManual = ({
       {/* Header */}
       <div className="flex items-center gap-2 shrink-0">
         <Code className="h-4 w-4 text-primary" />
-        <h3 className="text-sm font-semibold text-gray-700">SQL Editor</h3>
+        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">SQL Editor</h3>
       </div>
 
       {/* Code Editor - constrained height */}
@@ -103,7 +103,7 @@ const QueryEditorManual = ({
         <div className="flex-1" />
         <button
           onClick={() => setShowParams(!showParams)}
-          className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors"
+          className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
         >
           {showParams ? (
             <ChevronDown className="h-3.5 w-3.5" />
@@ -116,9 +116,9 @@ const QueryEditorManual = ({
 
       {/* Parameters Section - scrollable */}
       {showParams && (
-        <div className="border rounded-lg bg-gray-50/50 shrink-0">
+        <div className="border rounded-lg bg-gray-50/50 dark:bg-muted/50 shrink-0">
           <div className="flex items-center justify-between px-4 pt-3 pb-2">
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Parameters</span>
+            <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Parameters</span>
             <Button type="button" variant="outline" size="sm" onClick={addManualParameter} className="h-7 text-xs">
               <Plus className="h-3 w-3 mr-1" />
               Add
@@ -128,24 +128,24 @@ const QueryEditorManual = ({
             <div className="max-h-[180px] overflow-y-auto px-4 pb-3 space-y-2">
               {/* Auto-detected params */}
               {detectedParams.map((param) => (
-                <div key={param.name} className="rounded-lg border bg-white p-3 space-y-2">
+                  <div key={param.name} className="rounded-lg border bg-white dark:bg-card p-3 space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">
                         Auto
                       </span>
-                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 dark:bg-muted text-gray-600 dark:text-gray-400 rounded">
                         {param.dataType}
                       </span>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div className="space-y-1">
-                      <Label className="text-[10px] text-gray-500">Name</Label>
-                      <Input value={param.name} disabled className="text-xs h-7 bg-gray-50" />
+                      <Label className="text-[10px] text-gray-500 dark:text-gray-400">Name</Label>
+                      <Input value={param.name} disabled className="text-xs h-7 bg-gray-50 dark:bg-muted/50" />
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-[10px] text-gray-500">Value</Label>
+                      <Label className="text-[10px] text-gray-500 dark:text-gray-400">Value</Label>
                       <Input
                         type={sqlToJsTypeMap[param.dataType?.toUpperCase()] === "date" ? "date" : "text"}
                         placeholder={`Enter ${param.name}`}
@@ -160,13 +160,13 @@ const QueryEditorManual = ({
 
               {/* Manual params */}
               {manualParams.map((param, idx) => (
-                <div key={`manual-${idx}`} className="rounded-lg border bg-white p-3 space-y-2">
+                <div key={`manual-${idx}`} className="rounded-lg border bg-white dark:bg-card p-3 space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">
                         Manual
                       </span>
-                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 dark:bg-muted text-gray-600 dark:text-gray-400 rounded">
                         {param.dataType}
                       </span>
                     </div>
@@ -176,7 +176,7 @@ const QueryEditorManual = ({
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <div className="space-y-1">
-                      <Label className="text-[10px] text-gray-500">Name</Label>
+                      <Label className="text-[10px] text-gray-500 dark:text-gray-400">Name</Label>
                       <Input
                         value={param.name}
                         onChange={(e) => updateManualParameter(idx, "name", e.target.value)}
@@ -185,7 +185,7 @@ const QueryEditorManual = ({
                       />
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-[10px] text-gray-500">Type</Label>
+                      <Label className="text-[10px] text-gray-500 dark:text-gray-400">Type</Label>
                       <Select
                         value={param.dataType}
                         onValueChange={(value) => updateManualParameter(idx, "dataType", value)}
@@ -201,7 +201,7 @@ const QueryEditorManual = ({
                       </Select>
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-[10px] text-gray-500">Value</Label>
+                      <Label className="text-[10px] text-gray-500 dark:text-gray-400">Value</Label>
                       <Input
                         type={sqlToJsTypeMap[param.dataType?.toUpperCase()] === "date" ? "date" : "text"}
                         placeholder={`Enter ${param.name}`}
@@ -216,8 +216,8 @@ const QueryEditorManual = ({
             </div>
           ) : (
             <div className="px-4 pb-4">
-              <div className="text-center py-6 text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
-                <p className="text-xs">No parameters. Use <code className="bg-gray-100 px-1 rounded">@param</code> syntax or add manually.</p>
+              <div className="text-center py-6 text-gray-400 dark:text-gray-500 border-2 border-dashed border-gray-200 dark:border-border rounded-lg">
+                <p className="text-xs">No parameters. Use <code className="bg-gray-100 dark:bg-muted px-1 rounded">@param</code> syntax or add manually.</p>
               </div>
             </div>
           )}
@@ -229,10 +229,10 @@ const QueryEditorManual = ({
         <div className="space-y-2 shrink-0">
           <div className="flex items-center gap-2">
             <div className={`h-1.5 w-1.5 rounded-full ${isTestSuccessful ? "bg-emerald-500" : "bg-red-500"}`} />
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Result</span>
+            <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Result</span>
           </div>
-          <div className="bg-gray-50 rounded-lg border p-3 max-h-[180px] overflow-auto">
-            <pre className="text-xs whitespace-pre-wrap text-gray-700 font-mono">{result}</pre>
+          <div className="bg-gray-50 dark:bg-muted/50 rounded-lg border p-3 max-h-[180px] overflow-auto">
+            <pre className="text-xs whitespace-pre-wrap text-gray-700 dark:text-gray-300 font-mono">{result}</pre>
           </div>
         </div>
       )}

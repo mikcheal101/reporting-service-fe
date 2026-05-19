@@ -20,7 +20,7 @@ const renderTimePicker = ({fieldId, value, setForm }: renderTimePickerProps) => 
         [fieldId]: e.target.value,
       }))
     }
-    className="w-full rounded-lg border-gray-200 px-3 py-2 text-sm bg-white shadow-sm hover:shadow-md focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+    className="w-full rounded-lg border-gray-200 dark:border-border px-3 py-2 text-sm bg-white dark:bg-card shadow-sm hover:shadow-md focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
   />
 );
 

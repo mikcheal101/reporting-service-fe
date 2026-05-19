@@ -14,7 +14,7 @@ const Card: React.FC<CardProps> = ({ title, amount,  change, count }) => {
     const [firstWord, ...restOfTitle] = title.split(" ");
 
     return (
-        <div className="p-4 bg-white rounded shadow-sm text-[13px] font-light">
+        <div className="p-4 bg-white dark:bg-card rounded shadow-sm text-[13px] font-light">
             <div className="flex justify-between items-center">
                 <span className={`${(firstWord === "Pending" || title === "Total Overdue") ? "text-[#B01212]" : "text-[#7D7D7D]"}  whitespace-pre-wrap`}>
                     {firstWord} <br/>{restOfTitle.join(" ")}

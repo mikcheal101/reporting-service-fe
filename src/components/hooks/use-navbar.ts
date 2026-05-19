@@ -11,7 +11,7 @@ const useNavbar = (props: INavbarProps): INavbar => {
     const { user, logout } = useAuth();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const themeStyle = props.theme === "dark" ? "" : "p-4 bg-white";
+    const themeStyle = props.theme === "dark" ? "" : "p-4 bg-white dark:bg-card";
     const showBackButton = pathname !== FE_ROUTES.DASHBOARD;
 
     const handleBackClick = () => router.back();

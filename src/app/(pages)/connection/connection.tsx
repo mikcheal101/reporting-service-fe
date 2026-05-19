@@ -26,7 +26,7 @@ const Connection: React.FC = () => {
     );
   } else if (!connectionState.connections?.length) {
     content = (
-      <p className="text-center text-gray-500">No connections available.</p>
+      <p className="text-center text-gray-500 dark:text-gray-400">No connections available.</p>
     );
   } else if (connectionState.viewMode === "list") {
     content = (

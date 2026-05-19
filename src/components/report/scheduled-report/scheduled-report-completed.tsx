@@ -30,7 +30,7 @@ const EmptyState = () => (
     <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-muted mb-4">
       <Download className="h-6 w-6 text-muted-foreground" />
     </div>
-    <h3 className="text-base font-semibold text-gray-700 mb-1">No completed reports</h3>
+    <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">No completed reports</h3>
     <p className="text-sm text-muted-foreground max-w-sm mx-auto">
       Completed reports will appear here once they are ready for download.
     </p>
@@ -49,7 +49,7 @@ const ScheduledReportCompleted = ({
   <TabsContent value="tab1" className="mt-0">
     <div className="bg-card shadow-lg rounded-lg border border-border">
       <div className="px-6 py-4 border-b border-border">
-        <h2 className="text-lg font-semibold text-gray-800">Completed Reports</h2>
+        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Completed Reports</h2>
         <p className="text-sm text-muted-foreground mt-0.5">
           Download your generated reports below.
         </p>
@@ -77,7 +77,7 @@ const ScheduledReportCompleted = ({
                 <tbody className="divide-y divide-border">
                   {scheduledReports.map((report) => (
                     <tr key={report.id} className="hover:bg-muted/30 transition-colors">
-                      <td className="px-6 py-3.5 text-sm font-medium text-gray-900">
+                      <td className="px-6 py-3.5 text-sm font-medium text-gray-900 dark:text-gray-100">
                         <span className="truncate max-w-[160px] block" title={report.name}>
                           {report.name || "—"}
                         </span>
