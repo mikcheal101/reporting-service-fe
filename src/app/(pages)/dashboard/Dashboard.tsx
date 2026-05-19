@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import AIInsightCard from "@/components/AIInsightCard";
+import GuidedTour from "@/components/guided-tour";
 import { FadeIn, StaggerFadeIn } from "@/components/ui/fade-in";
 import { fetchDashboardMetricsAsync, fetchDashboardInsightsAsync, DashboardMetricsResponse } from "@/app/services/dashboard/dashboard-service";
 
@@ -33,6 +34,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="p-3 sm:p-6 space-y-6 sm:space-y-8 min-h-screen">
+            <GuidedTour />
             <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
                 {/* Header */}
                 <div className="mb-6 sm:mb-10">
