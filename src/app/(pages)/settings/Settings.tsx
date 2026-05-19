@@ -1,7 +1,15 @@
 "use client";
 
 import React from "react";
-import { Users, Settings as SettingsIcon, ScrollText } from "lucide-react";
+import {
+  Users,
+  Settings as SettingsIcon,
+  ScrollText,
+  Shield,
+  Bell,
+  Puzzle,
+  UserCog,
+} from "lucide-react";
 import useSettings from "@/app/hooks/settings/use-settings";
 
 const Settings = () => {
@@ -15,6 +23,26 @@ const Settings = () => {
             label: "Users Management",
             icon: <Users className="h-4 w-4" />,
             path: paths.userManagement,
+          },
+          {
+            label: "Security",
+            icon: <Shield className="h-4 w-4" />,
+            path: paths.security,
+          },
+          {
+            label: "Notifications",
+            icon: <Bell className="h-4 w-4" />,
+            path: paths.notification,
+          },
+          {
+            label: "Integration",
+            icon: <Puzzle className="h-4 w-4" />,
+            path: paths.integration,
+          },
+          {
+            label: "User Preferences",
+            icon: <UserCog className="h-4 w-4" />,
+            path: paths.userPreference,
           },
           {
             label: "System",
