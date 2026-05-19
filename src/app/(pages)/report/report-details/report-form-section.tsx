@@ -54,7 +54,7 @@ const ReportFormSection = ({ form, setForm }: ReportFormSectionProps) => {
 
       {/* Report Name */}
       <div className="space-y-1.5">
-        <Label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Report Name</Label>
+        <Label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Report Name</Label>
         <Input
           name="name"
           placeholder="Enter report name"
@@ -66,7 +66,7 @@ const ReportFormSection = ({ form, setForm }: ReportFormSectionProps) => {
 
       {/* Description */}
       <div className="space-y-1.5">
-        <Label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</Label>
+        <Label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Description</Label>
         <Input
           name="description"
           placeholder="Enter description"
@@ -78,7 +78,7 @@ const ReportFormSection = ({ form, setForm }: ReportFormSectionProps) => {
 
       {/* Connection Selection */}
       <div className="space-y-1.5">
-        <Label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Connection</Label>
+        <Label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Connection</Label>
         {isLoadingConnections ? (
           <Skeleton className="h-9 w-full" />
         ) : (
@@ -108,7 +108,7 @@ const ReportFormSection = ({ form, setForm }: ReportFormSectionProps) => {
 
       {/* Report Type Selection */}
       <div className="space-y-1.5">
-        <Label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Report Type</Label>
+        <Label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Report Type</Label>
         {isLoadingReportTypes ? (
           <Skeleton className="h-9 w-full" />
         ) : (
@@ -160,7 +160,7 @@ const ReportFormSection = ({ form, setForm }: ReportFormSectionProps) => {
       </div>
 
       {/* Divider */}
-      <div className="border-t border-gray-100" />
+      <div className="border-t border-gray-100 dark:border-border" />
 
       {/* Report Details List */}
       <ReportDetailList activeConnectionId={Number(form.connectionId)} />

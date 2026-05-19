@@ -18,7 +18,7 @@ const ProfileLayout: React.FC<{ children: React.ReactNode }> = ({
         <AppSidebar />
       </div>
       <div className="flex-1 flex flex-col min-h-screen">
-        <div className="sticky top-0 z-10 bg-white border-b border-sidebar-border">
+        <div className="sticky top-0 z-10 bg-white dark:bg-card border-b border-sidebar-border">
           <Navbar title="Profile" theme="" />
         </div>
         <div className="flex-1 overflow-y-auto">{children}</div>

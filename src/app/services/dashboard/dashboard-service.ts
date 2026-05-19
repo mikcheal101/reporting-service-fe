@@ -20,12 +20,16 @@ export interface DashboardMetricsResponse {
   };
   reportsByType: { type: string; count: number; percentage: number }[];
   reportsByStatus: { status: string; count: number; color: string }[];
+  reportsByFrequency: { frequency: string; count: number }[];
   executionTrends: { date: string; count: number; avgTime: number }[];
   topPerformingReports: { name: string; executions: number; avgTime: string }[];
   errorRates: { date: string; errorRate: number }[];
+  connectionTypes: { databaseType: string; count: number }[];
+  recentExecutions: { id: number; reportName: string; status: string; duration: string | null; executedAt: string | null }[];
   connectionCount: number;
   userCount: number;
   reportTypeCount: number;
+  totalTasks: number;
 }
 
 export const fetchDashboardMetricsAsync = async (): Promise<DashboardMetricsResponse> => {

@@ -42,9 +42,9 @@ const ReportSheetTable = ({
   deleteId,
   handleDeleteReport,
 }: ReportSheetTableProps) => (
-  <table className="w-full text-sm text-left text-gray-600">
+  <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
     <thead>
-      <tr className="bg-gray-100 border-b border-gray-300">
+      <tr className="bg-gray-100 dark:bg-muted border-b border-gray-300 dark:border-border">
         <th className="px-4 py-3">Name</th>
         <th className="px-4 py-3">Description</th>
         <th className="px-4 py-3 text-right">Action</th>

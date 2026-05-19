@@ -14,7 +14,7 @@ const ReportPageToolBar = ({
   setViewMode,
 }: ReportPageToolBarProps) => (
   <div className="flex items-center">
-    <h2 className="text-2xl font-bold text-gray-700 mb-6">Reports</h2>
+    <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-6">Reports</h2>
     <div className="flex justify-end ml-auto space-x-2">
       <Button
         variant={viewMode === "list" ? "default" : "secondary"}

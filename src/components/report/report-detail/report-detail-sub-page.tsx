@@ -25,14 +25,14 @@ const ReportDetailsSubPage = ({ form, setForm }: ReportDetailsPageProps) => (
         <ReportDetailsLayout>
           <div className="flex flex-1 gap-0 min-h-0">
             {/* Left Panel — Report Configuration */}
-            <div className="w-80 shrink-0 border-r border-gray-100 bg-gray-50/50 overflow-y-auto">
+            <div className="w-80 shrink-0 border-r border-gray-100 dark:border-border bg-gray-50/50 dark:bg-muted/20 overflow-y-auto">
               <ReportFormSection form={form} setForm={setForm} />
             </div>
 
             {/* Right Panel — Query Workspace */}
             <div className="flex-1 flex flex-col min-h-0">
               <div className="flex-1 overflow-y-auto p-4 lg:p-6">
-                <Card className="shadow-sm border-gray-100">
+                <Card className="shadow-sm border-gray-100 dark:border-border">
                   <CardContent className="p-4 lg:p-6">
                     <Tabs defaultValue="query-editor" className="space-y-6">
                       <QueryEditor report={form} />

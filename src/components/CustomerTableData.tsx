@@ -42,49 +42,49 @@ const CustomerTableData: React.FC<LoanTableProps> = ({ title }) => {
     };
 
     return (
-        <div className="p-4 bg-white rounded shadow-sm">
+        <div className="p-4 bg-white dark:bg-card rounded shadow-sm">
             <div className="mb-4 flex justify-between items-center">
                 <span className="font-bold text-xl">{title}</span>
             </div>
             <div className="mb-4">
-                <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-100">
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-border">
+                    <thead className="bg-gray-100 dark:bg-muted">
                     <tr>
                         <th className="px-4 py-3">
                             <input type="checkbox" className="form-checkbox" />
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">S/N</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">S/N</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Borrower Name and ID
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             No. of Loans
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Gross Loan Amount
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Loan Status
                         </th>
                     </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-white dark:bg-card divide-y divide-gray-200 dark:divide-border">
                     {paginatedLoans.map((loan, index) => (
                         <tr
                             key={index}
-                            className="hover:bg-gray-100 cursor-pointer"
+                            className="hover:bg-gray-100 dark:hover:bg-accent cursor-pointer"
                             onClick={() => handleRowClick(loan.loanId)}
                         >
                             <td className="px-4 py-4 whitespace-nowrap">
                                 <input type="checkbox" className="form-checkbox" />
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{loan.sn}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{loan.sn}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                 {loan.borrower} <br /> {loan.loanId}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{loan.loans}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{loan.amount}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{loan.loans}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{loan.amount}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                     <span
                                         className={`inline-block text-xs px-2 py-1 rounded-full ${
                                             loan.status === "Pending"

@@ -45,9 +45,9 @@ const DataTable: React.FC<DataTableProps> = ({
   }, [data, columns, searchValues]);
 
   const baseThemeClasses =
-    theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900';
+    theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white dark:bg-card text-gray-900 dark:text-gray-100';
   const cardThemeClasses =
-    theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100';
+    theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100 dark:bg-muted';
   const hoverThemeClasses =
     theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200';
 
@@ -63,21 +63,21 @@ const DataTable: React.FC<DataTableProps> = ({
           <MdViewList
             size={30}
             className={`cursor-pointer ${
-              viewType === 'list' ? 'text-blue-600' : 'text-gray-500'
+              viewType === 'list' ? 'text-blue-600' : 'text-gray-500 dark:text-gray-400'
             }`}
             onClick={() => setViewType('list')}
           />
           <MdGridView
             size={30}
             className={`cursor-pointer ${
-              viewType === 'grid' ? 'text-blue-600' : 'text-gray-500'
+              viewType === 'grid' ? 'text-blue-600' : 'text-gray-500 dark:text-gray-400'
             }`}
             onClick={() => setViewType('grid')}
           />
           <MdDashboard
             size={30}
             className={`cursor-pointer ${
-              viewType === 'kanban' ? 'text-blue-600' : 'text-gray-500'
+              viewType === 'kanban' ? 'text-blue-600' : 'text-gray-500 dark:text-gray-400'
             }`}
             onClick={() => setViewType('kanban')}
           />
@@ -137,7 +137,7 @@ const DataTable: React.FC<DataTableProps> = ({
                       </button>
                       <button
                         onClick={() => onEdit?.(item)}
-                        className="flex items-center justify-center px-2 sm:px-3 py-1 bg-white border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition whitespace-nowrap">                                            
+                        className="flex items-center justify-center px-2 sm:px-3 py-1 bg-white dark:bg-card border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition whitespace-nowrap">                                            
                           <FaEdit className="mr-1" />                  
                         Edit
                       </button>
@@ -179,7 +179,7 @@ const DataTable: React.FC<DataTableProps> = ({
                 </button>
                 <button
                   onClick={() => onEdit?.(item)}
-                  className="flex items-center justify-center px-3 py-1 bg-white border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition">                                            
+                  className="flex items-center justify-center px-3 py-1 bg-white dark:bg-card border-[#FFA500] border-2 text-[#FFA500] text-xs font-medium rounded transition">                                            
                       <FaEdit className="mr-1" />  
                   Edit
                 </button>

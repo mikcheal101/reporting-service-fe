@@ -29,7 +29,7 @@ const ReportCard: React.FC<ReportCardProps> = ({
       case 'negative':
         return 'text-red-600';
       default:
-        return 'text-gray-600';
+        return 'text-gray-600 dark:text-gray-400';
     }
   };
 
@@ -73,7 +73,7 @@ const ReportCard: React.FC<ReportCardProps> = ({
       purple: 'border-purple-100',
       indigo: 'border-indigo-100'
     };
-    return borders[color] || 'border-gray-100';
+    return borders[color] || 'border-gray-100 dark:border-border';
   };
 
   const getIconBgColor = () => {
@@ -97,7 +97,7 @@ const ReportCard: React.FC<ReportCardProps> = ({
       purple: 'bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent',
       indigo: 'bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'
     };
-    return textColors[color] || 'text-gray-900';
+    return textColors[color] || 'text-gray-900 dark:text-gray-100';
   };
 
   const getChangeBadgeColor = () => {
@@ -106,7 +106,7 @@ const ReportCard: React.FC<ReportCardProps> = ({
     } else if (changeType === 'negative') {
       return 'bg-rose-100 text-rose-700 border border-rose-200';
     }
-    return 'bg-gray-100 text-gray-700 border border-gray-200';
+    return 'bg-gray-100 dark:bg-muted text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-border';
   };
 
   return (
@@ -120,9 +120,9 @@ const ReportCard: React.FC<ReportCardProps> = ({
               </div>
             )}
             <div>
-              <h3 className="text-base sm:text-lg font-semibold text-gray-800 group-hover:text-gray-900 transition-colors duration-300">{title}</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300">{title}</h3>
               {subtitle && (
-                <p className="text-xs sm:text-sm text-gray-600 font-medium">{subtitle}</p>
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">{subtitle}</p>
               )}
             </div>
           </div>
@@ -138,7 +138,7 @@ const ReportCard: React.FC<ReportCardProps> = ({
                     {change}
                   </span>
                 </div>
-                <span className="text-xs text-gray-500">vs last period</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">vs last period</span>
               </div>
             )}
           </div>

@@ -20,7 +20,7 @@ type ConnectionFormSheetProps = {
   setConnection: (c: IConnection | null) => void;
   setConnectionId: (id: string) => void;
 
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleTestConnection: () => void;
   handleSubmit: () => void;
 };

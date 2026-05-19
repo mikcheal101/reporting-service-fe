@@ -6,9 +6,9 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import ReportTypeListProps from "@/types/components/report-type/report-type-list";
 
 const ReportTypeList = ({ reportTypes, handleEditReportType, setIsOpen, setDeleteId, deleteId, handleDelete, mapOutputType, mapFrequency }: ReportTypeListProps) => (
-  <table className="w-full text-sm text-left text-gray-600">
+  <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
     <thead>
-      <tr className="bg-gray-100 border-b border-gray-300">
+      <tr className="bg-gray-100 dark:bg-muted border-b border-gray-300 dark:border-border">
         <th className="px-4 py-3">Name</th>
         <th className="px-4 py-3">Output Type</th>
         <th className="px-4 py-3">Frequency</th>
@@ -19,7 +19,7 @@ const ReportTypeList = ({ reportTypes, handleEditReportType, setIsOpen, setDelet
       {reportTypes.length > 0 ? (
         reportTypes.map((reportType) => (
           <tr key={reportType.id} className="border-b">
-            <td className="px-4 py-3 font-medium text-gray-900">{reportType.name}</td>
+            <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{reportType.name}</td>
             <td className="px-4 py-3">{mapOutputType(reportType.outputType)}</td>
             <td className="px-4 py-3">{mapFrequency(reportType.frequency)}</td>
             <td className="px-4 py-3 text-right">
@@ -71,7 +71,7 @@ const ReportTypeList = ({ reportTypes, handleEditReportType, setIsOpen, setDelet
         ))
       ) : (
         <tr>
-          <td colSpan={4} className="text-center py-8 text-sm text-gray-500">
+          <td colSpan={4} className="text-center py-8 text-sm text-gray-500 dark:text-gray-400">
             No report types available
           </td>
         </tr>

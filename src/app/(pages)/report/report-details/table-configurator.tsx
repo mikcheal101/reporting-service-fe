@@ -48,7 +48,7 @@ const TableConfigurator = () => {
           {tables.map((table, tableIndex) => (
             <Card
               key={tableIndex}
-              className="border-2 border-dashed border-gray-200 hover:border-gray-300 transition-colors"
+              className="border-2 border-dashed border-gray-200 dark:border-border hover:border-gray-300 dark:hover:border-border transition-colors"
               onDragOver={handleDragOver}
             >
               <CardContent className="p-3 sm:p-4 space-y-4">

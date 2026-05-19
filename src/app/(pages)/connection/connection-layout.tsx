@@ -14,7 +14,7 @@ const ConnectionLayout: React.FC<{ children: React.ReactNode }> = ({
       </div>
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Sticky Navbar */}
-        <div className="sticky top-0 z-10 bg-white border-b border-sidebar-border">
+        <div className="sticky top-0 z-10 bg-white dark:bg-card border-b border-sidebar-border">
           <Navbar title="Reports" theme="" />
         </div>
         {/* Children Content */}

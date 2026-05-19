@@ -25,7 +25,7 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
       case 'low':
         return 'bg-blue-50 border-blue-200 text-blue-800';
       default:
-        return 'bg-gray-50 border-gray-200 text-gray-800';
+        return 'bg-gray-50 dark:bg-muted/50 border-gray-200 dark:border-border text-gray-800 dark:text-gray-200';
     }
   };
 
@@ -67,9 +67,9 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
       case 'analyst':
         return 'bg-blue-100 text-blue-800';
       case 'viewer':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 dark:bg-muted text-gray-800 dark:text-gray-200';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 dark:bg-muted text-gray-800 dark:text-gray-200';
     }
   };
 
@@ -105,24 +105,24 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
   };
 
   return (
-    <div className={`bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border-2 ${getSeverityColor()} hover:shadow-xl hover:scale-105 transition-all duration-300 group`}>
+    <div className={`bg-gradient-to-br from-white to-gray-50 dark:from-card dark:to-muted/50 rounded-2xl shadow-lg border-2 ${getSeverityColor()} hover:shadow-xl hover:scale-105 transition-all duration-300 group`}>
       {/* Header */}
-      <div className="p-4 sm:p-6 border-b border-gray-100">
+      <div className="p-4 sm:p-6 border-b border-gray-100 dark:border-border">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex items-center gap-3 sm:gap-4">
             <div className={`p-3 sm:p-4 rounded-xl ${getSeverityColor()} shadow-lg group-hover:shadow-xl transition-all duration-300`}>
               {getSeverityIcon()}
             </div>
             <div>
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-indigo-800 transition-colors duration-300">{insight.title}</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2">{insight.reportName}</p>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-indigo-800 dark:group-hover:text-indigo-400 transition-colors duration-300">{insight.title}</h3>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">{insight.reportName}</p>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
             <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${getRoleColor()} shadow-sm self-start`}>
               {insight.role}
             </span>
-            <div className="flex items-center gap-2 text-gray-500">
+            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
               {getAnalysisTypeIcon()}
               <span className="text-xs font-medium capitalize">{insight.analysisType.replace('_', ' ')}</span>
             </div>
@@ -132,17 +132,17 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
 
       {/* Content */}
       <div className="p-4 sm:p-6">
-        <p className="text-gray-700 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">{insight.description}</p>
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">{insight.description}</p>
         
         {/* Metrics */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
           <div className="text-center p-3 sm:p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100 shadow-sm">
             <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{insight.priority}</div>
-            <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mt-1">Priority</div>
+            <div className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mt-1">Priority</div>
           </div>
           <div className="text-center p-3 sm:p-4 bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl border border-emerald-100 shadow-sm">
             <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">{insight.impact}</div>
-            <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mt-1">Impact</div>
+            <div className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mt-1">Impact</div>
           </div>
         </div>
         
@@ -215,7 +215,7 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
             </h4>
             <div className="space-y-3">
               {insight.recommendations.map((item, index) => (
-                <div key={index} className="flex items-start gap-3 p-3 bg-white rounded-lg border border-green-100 hover:border-green-200 transition-all duration-300">
+                <div key={index} className="flex items-start gap-3 p-3 bg-white dark:bg-card rounded-lg border border-green-100 hover:border-green-200 transition-all duration-300">
                   <div className="w-2 h-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mt-2 flex-shrink-0 shadow-sm"></div>
                   <span className="text-sm text-green-700 leading-relaxed">{item}</span>
                 </div>
@@ -225,7 +225,7 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
         )}
 
         {/* Impact & Effort */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 text-xs sm:text-sm text-gray-600 mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-4">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
             <span className="flex items-center gap-1">
               <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,7 +247,7 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
                 <div
                   key={i}
                   className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full mr-1 ${
-                    i < insight.priority ? 'bg-orange-400' : 'bg-gray-200'
+                    i < insight.priority ? 'bg-orange-400' : 'bg-gray-200 dark:bg-muted'
                   }`}
                 />
               ))}
@@ -256,7 +256,7 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-border">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1"
@@ -276,7 +276,7 @@ const AIInsightCard: React.FC<AIInsightCardProps> = ({
             {onViewDetails && (
               <button
                 onClick={() => onViewDetails(insight.id)}
-                className="px-3 sm:px-4 py-2 text-sm font-medium bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 rounded-lg border border-gray-200 hover:from-gray-100 hover:to-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2"
+                className="px-3 sm:px-4 py-2 text-sm font-medium bg-gradient-to-r from-gray-50 to-gray-100 dark:from-muted dark:to-muted/80 text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-border hover:from-gray-100 hover:to-gray-200 dark:hover:from-accent dark:hover:to-accent hover:border-gray-300 dark:hover:border-border hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
