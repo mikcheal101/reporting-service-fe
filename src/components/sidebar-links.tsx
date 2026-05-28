@@ -1,25 +1,28 @@
 import ILink from "@/types/components/sidebar/ilink";
 import useSideBarLinks from "./hooks/use-sidebar-links";
+import usePermission from "@/app/hooks/auth/use-permission";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
 import { bottomLinks } from "./ui/bottom-link";
 import { mainLinks } from "./ui/main-link";
 
 const SidebarLinks = ({ isBottom = false }: { isBottom?: boolean }) => {
-
   const hook = useSideBarLinks();
+  const { hasPermission } = usePermission();
+
+  const filterLinks = (links: ILink[]) =>
+    links.filter((link) => {
+      if (!link.requiredPermission) return true;
+      return hasPermission(link.requiredPermission);
+    });
 
   const renderLinks = (links: ILink[]) => (
     <SidebarMenu className="space-y-1">
-      {links.map((link) => {
+      {filterLinks(links).map((link) => {
         const isLinkActive = hook.isActive(link);
-
         return (
-          <SidebarMenuItem
-            key={link.href}
+          <SidebarMenuItem key={link.href}
             className={`relative flex rounded-lg transition-all duration-200 ${
-              isLinkActive
-                ? "bg-sidebar-primary shadow-sm"
-                : "hover:bg-sidebar-accent"
+              isLinkActive ? "bg-sidebar-primary shadow-sm" : "hover:bg-sidebar-accent"
             }`}
           >
             {isLinkActive && (
@@ -35,9 +38,7 @@ const SidebarLinks = ({ isBottom = false }: { isBottom?: boolean }) => {
               aria-current={isLinkActive ? "page" : undefined}
             >
               <div className={`flex items-center gap-3 transition-all duration-200 ${isLinkActive ? "translate-x-0.5" : ""}`}>
-                <div className="flex-shrink-0 w-5 h-5">
-                  {link.icon}
-                </div>
+                <div className="flex-shrink-0 w-5 h-5">{link.icon}</div>
                 {!hook.isCollapsed && <span className="truncate">{link.label}</span>}
               </div>
             </SidebarMenuButton>

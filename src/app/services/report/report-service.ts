@@ -44,6 +44,11 @@ export const scheduleReportAsync = async (payload: IScheduleReport): Promise<boo
     return apiResponse.data;
 };
 
+export const fetchScheduledTasksAsync = async (): Promise<IScheduledReport[]> => {
+    const apiResponse: AxiosResponse = await api.get(`${buildUrl(process.env.NEXT_PUBLIC_SCHEDULED_TASKS)}`);
+    return apiResponse.data;
+};
+
 export const fetchGeneratedReportsAsync = async (): Promise<IScheduledReport[]> => {
     const apiResponse: AxiosResponse = await api.get(`${buildUrl(process.env.NEXT_PUBLIC_SCHEDULED_REPORT)}`);
     return apiResponse.data;

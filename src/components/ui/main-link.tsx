@@ -8,25 +8,30 @@ export const mainLinks: ILink[] = [
     label: "Dashboard",
     href: FE_ROUTES.DASHBOARD,
     icon: <LayoutDashboard className="w-5 h-5" />,
+    requiredPermission: "report.list",
   },
   {
     label: "Connection",
     href: FE_ROUTES.CONNECTION,
     icon: <Plug className="w-5 h-5" />,
+    requiredPermission: "connection.list",
   },
   {
     label: "Report Types",
     href: FE_ROUTES.REPORT_TYPE,
     icon: <Layers className="w-5 h-5" />,
+    requiredPermission: "report-type.list",
   },
   {
     label: "Report definition",
     href: FE_ROUTES.REPORT,
     icon: <FileText className="w-5 h-5" />,
+    requiredPermission: "report.list",
   },
   {
     label: "Scheduled reports",
     href: FE_ROUTES.SCHEDULED_REPORT,
     icon: <Clock className="w-5 h-5" />,
+    requiredPermission: "task.list",
   },
 ];
