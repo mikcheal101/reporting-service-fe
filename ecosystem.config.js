@@ -35,6 +35,7 @@ module.exports = {
         NEXT_PUBLIC_REPORT_PARAMETERS: '/api/v1/reports/report-parameters',
         NEXT_PUBLIC_GENERATE_REPORT: '/api/v1/tasks',
         NEXT_PUBLIC_SCHEDULED_REPORT: '/api/v1/tasks/completed-tasks',
+        NEXT_PUBLIC_SCHEDULED_TASKS: '/api/v1/tasks/scheduled-tasks',
         NEXT_PUBLIC_PENDING_REPORT: '/api/v1/tasks/pending-tasks',
         NEXT_PUBLIC_DOWNLOAD_REPORT: '/api/v1/tasks/download-report',
         NEXT_PUBLIC_ROLES: '/api/v1/roles',

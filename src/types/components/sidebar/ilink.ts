@@ -3,4 +3,5 @@ export default interface ILink {
   href: string;
   icon?: React.ReactNode;
   onClick?: () => void;
+  requiredPermission?: string;
 }

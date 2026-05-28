@@ -12,6 +12,7 @@ export const QUERY_KEYS = {
   REPORT_TYPES: 'report-types',
   ROLES: 'roles',
   PERMISSIONS: 'permissions',
+  SCHEDULED_TASKS: 'scheduled-tasks',
   PENDING_REPORTS: 'pending-reports',
   GENERATED_REPORTS: 'generated-reports',
 } as const;

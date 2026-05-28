@@ -16,6 +16,7 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import IReport from "@/types/report/ireport";
+import usePermission from "@/app/hooks/auth/use-permission";
 
 type ReportSheetTableProps = {
   deleteId: string | null;
@@ -41,87 +42,105 @@ const ReportSheetTable = ({
   confirmScheduleReport,
   deleteId,
   handleDeleteReport,
-}: ReportSheetTableProps) => (
-  <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
-    <thead>
-      <tr className="bg-gray-100 dark:bg-muted border-b border-gray-300 dark:border-border">
-        <th className="px-4 py-3">Name</th>
-        <th className="px-4 py-3">Description</th>
-        <th className="px-4 py-3 text-right">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {paginatedReports.map((report) => (
-        <tr key={report.id} className="border-b">
-          <td className="px-4 py-3">{report.name}</td>
-          <td className="px-4 py-3">{report.description}</td>
-          <td className="px-4 py-3 text-right">
-            <div className="flex justify-end space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => fetchReportDetails(report)}
-              >
-                <Pencil className="mr-1 h-3 w-3" />
-                Edit Report
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => fetchReportingParams(report.id)}
-              >
-                <PenLine className="mr-1 h-3 w-3" />
-                Edit Query
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleScheduleReport(report)}
-              >
-                <Calendar className="mr-1 h-3 w-3" />
-                Schedule
-              </Button>
-              <CustomAlertDialog
-                isOpen={isAlertOpen}
-                onClose={cancelScheduleReport}
-                onConfirm={confirmScheduleReport}
-              />
+}: ReportSheetTableProps) => {
+  const { can } = usePermission();
+  const canUpdate = can("report", "update");
+  const canDelete = can("report", "delete");
+  const canCreate = can("report", "create");
+  const showActions = canUpdate || canDelete || canCreate;
 
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => setDeleteId(report.id)}
-                  >
-                    <Trash2 className="mr-1 h-3 w-3" />
-                    Delete
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This action cannot be undone and will permanently delete
-                      the report.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={() => deleteId && handleDeleteReport(deleteId)}
-                    >
-                      Continue
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-          </td>
+  return (
+    <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
+      <thead>
+        <tr className="bg-gray-100 dark:bg-muted border-b border-gray-300 dark:border-border">
+          <th className="px-4 py-3">Name</th>
+          <th className="px-4 py-3">Description</th>
+          {showActions && <th className="px-4 py-3 text-right">Action</th>}
         </tr>
-      ))}
-    </tbody>
-  </table>
-);
+      </thead>
+      <tbody>
+        {paginatedReports.map((report) => (
+          <tr key={report.id} className="border-b">
+            <td className="px-4 py-3">{report.name}</td>
+            <td className="px-4 py-3">{report.description}</td>
+            {showActions && (
+              <td className="px-4 py-3 text-right">
+                <div className="flex justify-end space-x-2">
+                  {canUpdate && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => fetchReportDetails(report)}
+                    >
+                      <Pencil className="mr-1 h-3 w-3" />
+                      Edit Report
+                    </Button>
+                  )}
+                  {canUpdate && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => fetchReportingParams(report.id)}
+                    >
+                      <PenLine className="mr-1 h-3 w-3" />
+                      Edit Query
+                    </Button>
+                  )}
+                  {canCreate && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleScheduleReport(report)}
+                    >
+                      <Calendar className="mr-1 h-3 w-3" />
+                      Schedule
+                    </Button>
+                  )}
+                  <CustomAlertDialog
+                    isOpen={isAlertOpen}
+                    onClose={cancelScheduleReport}
+                    onConfirm={confirmScheduleReport}
+                  />
+
+                  {canDelete && (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => setDeleteId(report.id)}
+                        >
+                          <Trash2 className="mr-1 h-3 w-3" />
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone and will permanently delete
+                            the report.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => deleteId && handleDeleteReport(deleteId)}
+                          >
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  )}
+                </div>
+              </td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 export default ReportSheetTable;

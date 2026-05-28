@@ -4,6 +4,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import useScheduledReport from "@/app/hooks/report/scheduled-report/use-scheduled-report";
 import ScheduledReportCompleted from "@/components/report/scheduled-report/scheduled-report-completed";
 import ScheduledReportPending from "@/components/report/scheduled-report/scheduled-report-pending";
+import ScheduledReportScheduled from "@/components/report/scheduled-report/scheduled-report-scheduled";
 import ScheduledReportToolBar from "@/components/report/scheduled-report/scheduled-report-toolbar";
 import { Tabs } from "@/components/ui/tabs";
 
@@ -16,8 +17,10 @@ const ScheduledReport = () => {
     goToNextPage,
     isGeneratedLoading,
     isPendingLoading,
+    isScheduledLoading,
     scheduledReports,
     scheduledPendingReports,
+    scheduledTasks,
   } = useScheduledReport();
 
   return (
@@ -37,6 +40,10 @@ const ScheduledReport = () => {
           <ScheduledReportPending
             loading={isPendingLoading}
             scheduledPendingReports={scheduledPendingReports || []}
+          />
+          <ScheduledReportScheduled
+            loading={isScheduledLoading}
+            scheduledTasks={scheduledTasks || []}
           />
         </Tabs>
       </FadeIn>
